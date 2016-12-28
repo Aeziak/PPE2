@@ -37,13 +37,25 @@ function getPosition(){
 
 
 // echo test de la lat et lng	
-while ( true ) {
+/*while ( true ) {
 	getPosition();
 	for(i = 0; i < parcours.length; i++){
 		console.log(parcours[i].decrire());
 	}
-}
+}*/
 
+while ( true ) {
+
+	var i = parcours.length;
+
+	getPosition();
+	getPosition();
+	var posLat1 = parcours[i].lat + parcours[i + 1].lat;
+	var posLng2 = parcours[i].lng + parcours[i + 1].lng;
+
+	console.log(posLng2);
+
+}
 
 
 
