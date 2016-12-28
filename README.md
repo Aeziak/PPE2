@@ -1,3 +1,2 @@
 # PPE2
-PPE
-TRYC
+TAMER
