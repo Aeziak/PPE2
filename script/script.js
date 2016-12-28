@@ -75,9 +75,9 @@ while ( true ) {
 	var posLng2 = parcours[i].lng + parcours[i + 1].lng;
 
 	var lat1 = parcours[i].lat;
-	var lat2 = parcours[i].lat;
+	var lat2 = parcours[i + 1].lat;
 	var lng1 = parcours[i].lng;
-	var lng2 = parcours[i].lng;
+	var lng2 = parcours[i + 1].lng;
 
 	getDistanceFromLatLngInKm()
 
