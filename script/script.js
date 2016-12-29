@@ -1,5 +1,6 @@
 //Début du programme
 
+
 //Initialisation des variables
 
 var objpos = {
@@ -13,73 +14,79 @@ var objpos = {
 		var desc = this.lat + " MDRRRRR " +  this.lng;
 		return desc;
 	}
-
 };
 
 var parcours = [];
+var distanceParcouru = [];
 
 //Initialisation des fonctions
+
 
 function getPosition(){
 
 	var lat = Number(prompt("Lat"));
 	var lng = Number(prompt("Lng"));
- 
-	var i = parcours.length + 1;
+	 
+	var i = parcours.length;
 
 	objpos[i] = Object.create(objpos);
 	objpos[i].init(lat, lng);
 
 	parcours.push(objpos[i]);
+}
 
+function distance(lat1, lon1, lat2, lon2) {
+	  var p = 0.017453292519943295;    // Math.PI / 180
+	  var c = Math.cos;
+	  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+	          c(lat1 * p) * c(lat2 * p) * 
+	          (1 - c((lon2 - lon1) * p))/2;
 
+	  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
 
-// echo test de la lat et lng	
-/*while ( true ) {
-	getPosition();
-	for(i = 0; i < parcours.length; i++){
-		console.log(parcours[i].decrire());
+function courseOn() {
+
+	var dTotal = 0;
+	var machin = true; //Machin est la fonction qui détecte le GPS
+
+	while (  true ) {
+		
+		if ( machin === true ) {
+			
+			setInterval( function () {
+
+				var i = parcours.length;
+				var dTotal = 0;
+
+				getPosition();
+				getPosition();
+
+				var lat1 = parcours[i].lat;
+				var lat2 = parcours[i + 1].lat;
+				var lon1 = parcours[i].lng;
+				var lon2 = parcours[i + 1].lng;
+
+				var d = distanceCalcul(lat1, lon1, lat2, lon2); //Calcul de la distance
+
+				distanceParcouru.push(d);
+				var dTotal = d + dTotal;
+				
+				var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0]; //Affichage de la distance
+				targetDiv.innerHTML = dTotal;
+
+				var u = distanceParcouru.length - 1;
+				var v = distanceParcouru[u] * 1000; //Conversion Km en M (v = d/t t = 1) Vitesse en m/s
+				vitesse.push(v);
+
+			}, 1000);
+			break;
+		}
+		
+		else {
+			alert("Votre GPS n'est pas détecté");
+			break;
+		}
 	}
-}*/
-
-while ( true ) {
-
-	var i = parcours.length;
-
-	getPosition();
-	getPosition();
-	var posLat1 = parcours[i].lat + parcours[i + 1].lat;
-	var posLng2 = parcours[i].lng + parcours[i + 1].lng;
-
-	console.log(posLng2);
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Fin du programme
