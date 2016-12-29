@@ -54,25 +54,34 @@ function courseOn() {
 	while (  true ) {
 		
 		if ( machin === true ) {
-			var i = parcours.length;
+			
+			setInterval( function () {
 
-			getPosition();
-			getPosition();
+				var i = parcours.length;
+				var dTotal = 0;
 
-			var lat1 = parcours[i].lat; //Affectation des variables ddu tableau 
-			var lat2 = parcours[i + 1].lat;
-			var lon1 = parcours[i].lng;
-			var lon2 = parcours[i + 1].lng;
+				getPosition();
+				getPosition();
 
-			var d = distance(lat1, lon1, lat2, lon2) + d; //Calcule de la distance
-			var n = distanceParcouru.length;
-			distanceParcouru.push(d[n]);
-			var dTotal = d + dTotal;
+				var lat1 = parcours[i].lat;
+				var lat2 = parcours[i + 1].lat;
+				var lon1 = parcours[i].lng;
+				var lon2 = parcours[i + 1].lng;
 
-			var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0]; //Afficher dTotal
-			targetDiv.innerHTML = dTotal;
+				var d = distanceCalcul(lat1, lon1, lat2, lon2); //Calcul de la distance
 
-			break;	
+				distanceParcouru.push(d);
+				var dTotal = d + dTotal;
+				
+				var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0]; //Affichage de la distance
+				targetDiv.innerHTML = dTotal;
+
+				var u = distanceParcouru.length - 1;
+				var v = distanceParcouru[u] * 1000; //Conversion Km en M (v = d/t t = 1) Vitesse en m/s
+				vitesse.push(v);
+
+			}, 1000);
+			break;
 		}
 		
 		else {
