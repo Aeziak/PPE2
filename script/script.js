@@ -17,6 +17,7 @@ var objpos = {
 };
 
 var parcours = [];
+var distanceParcouru = [];
 
 //Initialisation des fonctions
 
@@ -47,26 +48,36 @@ function distance(lat1, lon1, lat2, lon2) {
 
 function courseOn() {
 
-	var d = 0;
+	var dTotal = 0;
+	var machin = true; //Machin est la fonction qui détecte le GPS
 
-	while ( true ) {
+	while (  true ) {
+		
+		if ( machin === true ) {
+			var i = parcours.length;
 
-		var i = parcours.length;
+			getPosition();
+			getPosition();
 
-		getPosition();
-		getPosition();
+			var lat1 = parcours[i].lat; //Affectation des variables ddu tableau 
+			var lat2 = parcours[i + 1].lat;
+			var lon1 = parcours[i].lng;
+			var lon2 = parcours[i + 1].lng;
 
-		var lat1 = parcours[i].lat;
-		var lat2 = parcours[i + 1].lat;
-		var lon1 = parcours[i].lng;
-		var lon2 = parcours[i + 1].lng;
+			var d = distance(lat1, lon1, lat2, lon2) + d; //Calcule de la distance
+			var n = distanceParcouru.length;
+			distanceParcouru.push(d[n]);
+			var dTotal = d + dTotal;
 
-		var d = distance(lat1, lon1, lat2, lon2) + d;
+			var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0]; //Afficher dTotal
+			targetDiv.innerHTML = dTotal;
 
-		var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
-		targetDiv.innerHTML = d;
-
-		break;
-
+			break;	
+		}
+		
+		else {
+			alert("Votre GPS n'est pas détecté");
+			break;
+		}
 	}
 }
