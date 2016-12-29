@@ -16,4 +16,5 @@
   - Chronométre sur la page
   - CSS
   - API Google
+  - Plus de commentaire pour les pétes couilles
    
