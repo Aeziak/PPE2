@@ -14,6 +14,7 @@
   
   - Affichage de fin de course : Vitesse Moy/Max/Min + Temps Total 
   - Chronométre sur la page
+  - Fonction machin qui détecte le GPS
   - CSS
   - API Google
   - Un Button Break
