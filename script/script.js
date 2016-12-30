@@ -11,24 +11,21 @@ var objpos = {
 	},
 
 	decrire:function(){
-		var desc = this.lat + " MDRRRRR " +  this.lng;
+		var desc = this.lat + this.lng;
 		return desc;
 	}
 };
 
-var dTotal = 0;
-var course = false;
-var parcours = [];
-var distanceParcouru = [];
-var vitesse = [];
-var off = 0;
-
-console.log(vitesse);
+var dTotal = 0; // Distance Totale
+var course = false; // Variable booléenne géré par un button qui signale le Début/Fin de la course
+var parcours = []; // Tableau des coordonnées GPS
+var distanceParcouru = []; // Tableau des distances
+var vitesse = []; // Tableau des vitesses
+var off = 0; // Variable pour gérer l'affichage des résultats
 
 //Initialisation des fonctions
 
-
-function getPosition(){
+function getPosition(){ // Récupère latitude et longitude pour le mettre dans un tableau
 
 	var lat = Math.random();
 	var lng = Math.random(); //Number(prompt("Lng"));
@@ -41,7 +38,7 @@ function getPosition(){
 	parcours.push(objpos[i]);
 }
 
-function distanceTotale (distanceParcouru) {
+function distanceTotale (distanceParcouru) { // Additionne toutes les distances
 	var d = 0;
 	for (var i = 0; i < distanceParcouru.length; i++) {
    		 var d = d + distanceParcouru[i];
@@ -49,7 +46,7 @@ function distanceTotale (distanceParcouru) {
 	return d;
 }
 
-function valeurMax (vitesse) {
+function valeurMax (vitesse) { // Cherche la vitesse Max atteinte
 	var vMax = 0;
 	for (var i = 0; i < vitesse.length; i++) {
 		if ( vMax < vitesse[i]) {
@@ -61,7 +58,7 @@ function valeurMax (vitesse) {
 
 }
 
-function valeurMin (vitesse) {
+function valeurMin (vitesse) { // Cherche la vitesse Min atteinte
 	var vMin = vitesse[0];
 	for (var i = 1; i < vitesse.length; i++) {
 		if ( vMin > vitesse[i]) {
@@ -73,7 +70,7 @@ function valeurMin (vitesse) {
 
 }
 
-function distanceCalcul(lat1, lon1, lat2, lon2) {
+function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entre 2 coordonnées GPS
 	  var p = 0.017453292519943295;    // Math.PI / 180
 	  var c = Math.cos;
 	  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
@@ -84,9 +81,9 @@ function distanceCalcul(lat1, lon1, lat2, lon2) {
 }
 
 
-setInterval( function courseOn() {
+setInterval( function courseOn() { // Boucle Programme
 
-	if ( course === true ) {
+	if ( course === true ) { // Monitoring de la course
 		var i = parcours.length;
 
 		getPosition();
@@ -113,16 +110,16 @@ setInterval( function courseOn() {
 
 	}
 
-	else if ( off === 2 ) {
+	else if ( off === 2 ) { // Affichage du Tableau
 		courseOff();
 		off = 0;
 	}
-	else {
+	else { // Arret
 	}
 
 }, 1000);
 
-function courseOff() {
+function courseOff() { // Gére l'affichage des résultats
 	var dTotal = distanceTotale(distanceParcouru);
 	var vMax = valeurMax(vitesse);
 	var vMin = valeurMin(vitesse);
@@ -135,3 +132,4 @@ function courseOff() {
 	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
 
 }
+
