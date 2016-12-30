@@ -16,6 +16,7 @@ var objpos = {
 	}
 };
 
+var course = false;
 var parcours = [];
 var distanceParcouru = [];
 var vitesse = [];
@@ -70,7 +71,6 @@ function valeurMin (vitesse) {
 
 }
 
-
 function distanceCalcul(lat1, lon1, lat2, lon2) {
 	  var p = 0.017453292519943295;    // Math.PI / 180
 	  var c = Math.cos;
@@ -81,66 +81,42 @@ function distanceCalcul(lat1, lon1, lat2, lon2) {
 	 return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
+
 function courseOn() {
+	var dTotal = 0;
 
-	
-	var machin = true; // Machin est la fonction qui vas détecter le GPS
-	var truc = true;
-	
+	setInterval( function() {
 
-	while ( true ) {
-		
-		setTimeout( function (dTotal){
-		
-		//fonction pour vérifier machin
-		//fonction évènement pour passer le truc = false
+		if ( course === true ) {
+			var i = parcours.length;
 
-			if ( machin === true && truc === true) { //Truc est la variable qui gére l'arret
+			getPosition();
+			getPosition();
 
-					var i = parcours.length;
+			var lat1 = parcours[i].lat;
+			var lat2 = parcours[i + 1].lat;
+			var lon1 = parcours[i].lng;
+			var lon2 = parcours[i + 1].lng;
 
-					getPosition();
-					getPosition();
+			var d = distanceCalcul(lat1, lon1, lat2, lon2);
 
-					var lat1 = parcours[i].lat;
-					var lat2 = parcours[i + 1].lat;
-					var lon1 = parcours[i].lng;
-					var lon2 = parcours[i + 1].lng;
+			console.log(d);
+			distanceParcouru.push(d);
+						
+			dTotal = d + dTotal;
+			console.log(d + dTotal);
+						
+			var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
+			targetDiv.innerHTML = dTotal;
 
-					var d = distanceCalcul(lat1, lon1, lat2, lon2);
+			var u = distanceParcouru.length - 1;
+			var v = distanceParcouru[u] * 1000; //Conversion Km en M
+			vitesse.push(v);
 
-					console.log(d);
-					distanceParcouru.push(d);
-					
-
-					console.log(d + dTotal);
-					
-					var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
-					targetDiv.innerHTML = dTotal;
-
-					var u = distanceParcouru.length - 1;
-					var v = distanceParcouru[u] * 1000; //Conversion Km en M
-					vitesse.push(v);
-
-					console.log(vitesse);
-
-				//Ajouter le chrono ici
-
-			}
-
-			else if ( truc === false) { // Affichage des résultats
-				var dTotal = distanceTotale(distanceParcouru);
-				var vMax = valeurMax(vitesse);
-				var vMin = valeurMin(vitesse);
-				//Var tTotal = return du chronométre
-
-			}
-
-			else {
-				alert("Votre GPS n'est pas détecté");
-			}
-		}, 1000);
-		break;
-	}
-		
+			console.log(vitesse);
+		}
+		else {
+		}
+	}, 10000)
 }
+
