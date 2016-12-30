@@ -7,7 +7,6 @@ TODO :
   - Chronométre
   - API Google
   - Compilation en APK
-  - Reset des données
   
 Fonctionnalités oppérationelles :
 
@@ -15,4 +14,4 @@ Fonctionnalités oppérationelles :
   - Boutton Arrêt/Démarrage
   - Affichage des résultats de fin de course
   - Calcul d'une distance entre 2 positions GPS
-  - 
+  - Reset des données pour la seconde course
