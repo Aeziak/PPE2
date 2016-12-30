@@ -22,6 +22,9 @@ var parcours = []; // Tableau des coordonnées GPS
 var distanceParcouru = []; // Tableau des distances
 var vitesse = []; // Tableau des vitesses
 var off = 0; // Variable pour gérer l'affichage des résultats
+var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
+var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
+var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
 
 //Initialisation des fonctions
 
@@ -83,7 +86,20 @@ function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entr
 
 setInterval( function courseOn() { // Boucle Programme
 
-	if ( course === true ) { // Monitoring de la course
+
+	if ( off === 3 ) { // Pour reset toutes les données lors du début de la seconde course
+		off = 1;
+		dTotal = 0;
+		targetDiv.innerHTML = "";
+		targetDiv1.innerHTML = "";
+		targetDiv2.innerHTML = "";
+		parcours = []; // Tableau des coordonnées GPS
+		distanceParcouru = []; // Tableau des distances
+		vitesse = []; // Tableau des vitesses
+
+	}
+
+	else if ( course === true ) { // Monitoring de la course
 		var i = parcours.length;
 
 		getPosition();
@@ -101,7 +117,6 @@ setInterval( function courseOn() { // Boucle Programme
 
 		dTotal = d + dTotal;
 		
-		var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
 		targetDiv.innerHTML = "Distance parcouru : " + dTotal + " Km";
 
 		var u = distanceParcouru.length - 1;
@@ -112,7 +127,6 @@ setInterval( function courseOn() { // Boucle Programme
 
 	else if ( off === 2 ) { // Affichage du Tableau
 		courseOff();
-		off = 0;
 	}
 	else { // Arret
 	}
@@ -120,18 +134,14 @@ setInterval( function courseOn() { // Boucle Programme
 }, 1000);
 
 function courseOff() { // Gére l'affichage des résultats
-	var dTotal = distanceTotale(distanceParcouru);
+	var dT = distanceTotale(distanceParcouru);
 	var vMax = valeurMax(vitesse);
 	var vMin = valeurMin(vitesse);
-	//Vitesse Moyenne
-	//Temps Total
 
-	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
-	var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
-	var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
-	targetDiv.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
+	targetDiv.innerHTML = "Distance Totale : " + dT * 1000 + " m";
 	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
 	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
 
 }
+
 
