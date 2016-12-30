@@ -1,5 +1,6 @@
 //Début du programme
 
+
 //Initialisation des variables
 
 var objpos = {
@@ -17,13 +18,11 @@ var objpos = {
 
 var dTotal = 0; // Distance Totale
 var course = false; // Variable booléenne géré par un button qui signale le Début/Fin de la course
+var timerStart = false;
 var parcours = []; // Tableau des coordonnées GPS
 var distanceParcouru = []; // Tableau des distances
 var vitesse = []; // Tableau des vitesses
 var off = 0; // Variable pour gérer l'affichage des résultats
-var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
-var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
-var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
 
 //Initialisation des fonctions
 
@@ -82,23 +81,30 @@ function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entr
 	 return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
+//Initialisation des variables
+var sec = 0;
+var min = 0;
+var heure = 0;
+//Fonction d'incrémentation
+setInterval(function totalTime(time){
+	if(timerStart === true){
+		sec++;
+		time = sec;
+		if(sec === 60){
+			sec = 0;
+			min++;
+		}
+		if(min === 60){
+			min = 0;
+			heure++;
+		}
+		console.log(time);
+	}
+}, 1000);
 
 setInterval( function courseOn() { // Boucle Programme
 
-
-	if ( off === 3 ) { // Pour reset toutes les données lors du début de la seconde course
-		off = 1;
-		dTotal = 0;
-		targetDiv.innerHTML = "";
-		targetDiv1.innerHTML = "";
-		targetDiv2.innerHTML = "";
-		parcours = []; // Tableau des coordonnées GPS
-		distanceParcouru = []; // Tableau des distances
-		vitesse = []; // Tableau des vitesses
-
-	}
-
-	else if ( course === true ) { // Monitoring de la course
+	if ( course === true ) { // Monitoring de la course
 		var i = parcours.length;
 
 		getPosition();
@@ -116,16 +122,19 @@ setInterval( function courseOn() { // Boucle Programme
 
 		dTotal = d + dTotal;
 		
+		var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
 		targetDiv.innerHTML = "Distance parcouru : " + dTotal + " Km";
 
 		var u = distanceParcouru.length - 1;
 		var v = distanceParcouru[u] * 1000; //Conversion Km en M
 		vitesse.push(v);
+		
 
 	}
 
 	else if ( off === 2 ) { // Affichage du Tableau
 		courseOff();
+		off = 0;
 	}
 	else { // Arret
 	}
@@ -133,13 +142,26 @@ setInterval( function courseOn() { // Boucle Programme
 }, 1000);
 
 function courseOff() { // Gére l'affichage des résultats
-	var dT = distanceTotale(distanceParcouru);
+	var dTotal = distanceTotale(distanceParcouru);
 	var vMax = valeurMax(vitesse);
 	var vMin = valeurMin(vitesse);
+	//Vitesse Moyenne : Check
+	//Temps Total : Check
 
-	targetDiv.innerHTML = "Distance Totale : " + dT * 1000 + " m";
+	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
+	var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
+	var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
+	var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
+	var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
+	targetDiv.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
 	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
 	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
-
+	targetDiv3.innerHTML = "Vitesse Moyenne : " + (vMin + vMax)/2 + " m/s";
+	targetDiv4.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";
+	
+	//Re-initialisation des variables
+	sec = 0;
+	min = 0;
+	heure = 0;
 }
 
