@@ -7,6 +7,7 @@ TODO :
   - Chronométre
   - API Google
   - Compilation en APK
+  - Reset des données
   
 Fonctionnalités oppérationelles :
 
