@@ -123,6 +123,8 @@ function courseOff() { // Gére l'affichage des résultats
 	var dTotal = distanceTotale(distanceParcouru);
 	var vMax = valeurMax(vitesse);
 	var vMin = valeurMin(vitesse);
+	//Vitesse Moyenne
+	//Temps Total
 
 	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
 	var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
