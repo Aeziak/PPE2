@@ -81,11 +81,8 @@ function distanceCalcul(lat1, lon1, lat2, lon2) {
 	 return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
-
-function courseOn() {
-	var dTotal = 0;
-
-	setInterval( function() {
+var dTotal = 0;
+setInterval(function courseOn() {
 
 		if ( course === true ) {
 			var i = parcours.length;
@@ -99,13 +96,11 @@ function courseOn() {
 			var lon2 = parcours[i + 1].lng;
 
 			var d = distanceCalcul(lat1, lon1, lat2, lon2);
-
 			console.log(d);
 			distanceParcouru.push(d);
-						
+
 			dTotal = d + dTotal;
-			console.log(d + dTotal);
-						
+		
 			var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
 			targetDiv.innerHTML = dTotal;
 
@@ -113,10 +108,16 @@ function courseOn() {
 			var v = distanceParcouru[u] * 1000; //Conversion Km en M
 			vitesse.push(v);
 
-			console.log(vitesse);
 		}
 		else {
 		}
-	}, 10000)
+}, 1000);
+
+function courseOff() {
+	var dTotal = distanceTotale(distanceParcouru);
+	var vMax = valeurMax(vitesse);
+	var vMin = valeurMin(vitesse);
+
+
 }
 
