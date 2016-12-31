@@ -19,7 +19,6 @@ var objpos = {
 var dTotal = 0; // Distance Totale
 var course = false; // Variable booléenne géré par un button qui signale le Début/Fin de la course
 var parcours = []; // Tableau des coordonnées GPS
-var timerStart = false;
 var distanceParcouru = []; // Tableau des distances
 var vitesse = []; // Tableau des vitesses
 var off = 0; // Variable pour gérer l'affichage des résultats
@@ -168,8 +167,6 @@ setInterval( function courseOn() { // Boucle Programme
 	}
 	else { // Arret
 	}
-	totalTime();
-
 
 }, 1000);
 
