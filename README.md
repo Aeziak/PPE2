@@ -9,6 +9,8 @@ TODO :
   - Compilation en APK
   - Profil de l'utilisateur
   - Graphique des efforts
+  - Alert erreur
+  - Condition si GPS
   
 Fonctionnalités oppérationelles :
 
