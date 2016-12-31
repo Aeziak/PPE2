@@ -3,8 +3,6 @@ TODO :
 
   - CSS
   - Plus de commentaires
-  - Vitesse Moyenne 
-  - Chronométre affiché pendant la course
   - API Google
   - Compilation en APK
   - Profil de l'utilisateur
@@ -19,3 +17,4 @@ Fonctionnalités oppérationelles :
   - Affichage des résultats de fin de course
   - Calcul d'une distance entre 2 positions GPS
   - Reset des données pour la seconde course
+  - Chrono affiché pendant la course 
