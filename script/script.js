@@ -122,9 +122,11 @@ setInterval( function courseOn() { // Boucle Programme
 
 		dTotal = d + dTotal;
 		
-		var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
-		targetDiv.innerHTML = "Distance parcouru : " + dTotal + " Km";
 
+		var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
+		var targetDiv5 = document.getElementById("Oui").getElementsByClassName("Distance")[5];
+		targetDiv.innerHTML = "Distance parcouru : " + dTotal + " Km";
+		targetDiv5.innerHTML = min + " : " + sec;
 		var u = distanceParcouru.length - 1;
 		var v = distanceParcouru[u] * 1000; //Conversion Km en M
 		vitesse.push(v);
@@ -145,6 +147,11 @@ function courseOff() { // Gére l'affichage des résultats
 	var dTotal = distanceTotale(distanceParcouru);
 	var vMax = valeurMax(vitesse);
 	var vMin = valeurMin(vitesse);
+	var somme = 0;
+	for(i = 0; i < vitesse.length; i++){
+		somme += vitesse[i];
+		console.log("vitesse " + vitesse);
+	}
 	//Vitesse Moyenne : Check
 	//Temps Total : Check
 
@@ -156,7 +163,7 @@ function courseOff() { // Gére l'affichage des résultats
 	targetDiv.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
 	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
 	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
-	targetDiv3.innerHTML = "Vitesse Moyenne : " + (vMin + vMax)/2 + " m/s";
+	targetDiv3.innerHTML = "Vitesse Moyenne : " + somme/i + " m/s";
 	targetDiv4.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";
 	
 	//Re-initialisation des variables
