@@ -1,5 +1,6 @@
 //Début du programme
 
+
 //Initialisation des variables
 
 var objpos = {
@@ -18,12 +19,18 @@ var objpos = {
 var dTotal = 0; // Distance Totale
 var course = false; // Variable booléenne géré par un button qui signale le Début/Fin de la course
 var parcours = []; // Tableau des coordonnées GPS
+var timerStart = false;
 var distanceParcouru = []; // Tableau des distances
 var vitesse = []; // Tableau des vitesses
 var off = 0; // Variable pour gérer l'affichage des résultats
+var sec = 0;
+var min = 0;
+var heure = 0;
 var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
 var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
 var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
+var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
+var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
 
 //Initialisation des fonctions
 
@@ -79,12 +86,28 @@ function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entr
 		         c(lat1 * p) * c(lat2 * p) * 
 		         (1 - c((lon2 - lon1) * p))/2;
 
-	 return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+	 return Math.round(12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
 }
 
+function courseOff() { // Gére l'affichage des résultats
+	var dT = distanceTotale(distanceParcouru);
+	var vMax = valeurMax(vitesse);
+	var vMin = valeurMin(vitesse);
+
+	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
+	var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
+	var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
+	var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
+	var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
+	targetDiv.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
+	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
+	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
+	targetDiv3.innerHTML = "Vitesse Moyenne : " + (vMin + vMax)/2 + " m/s";
+	targetDiv4.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";
+
+}
 
 setInterval( function courseOn() { // Boucle Programme
-
 
 	if ( off === 3 ) { // Pour reset toutes les données lors du début de la seconde course
 		off = 1;
@@ -92,9 +115,14 @@ setInterval( function courseOn() { // Boucle Programme
 		targetDiv.innerHTML = "";
 		targetDiv1.innerHTML = "";
 		targetDiv2.innerHTML = "";
+		targetDiv3.innerHTML = "";
+		targetDiv4.innerHTML = "";
 		parcours = []; // Tableau des coordonnées GPS
 		distanceParcouru = []; // Tableau des distances
 		vitesse = []; // Tableau des vitesses
+		sec = 0;
+		min = 0;
+		heure = 0;
 
 	}
 
@@ -109,18 +137,29 @@ setInterval( function courseOn() { // Boucle Programme
 		var lon1 = parcours[i].lng;
 		var lon2 = parcours[i + 1].lng;
 
-		var d = distanceCalcul(lat1, lon1, lat2, lon2);
+		var d = 1000 * distanceCalcul(lat1, lon1, lat2, lon2);
 		console.log(d);
 		distanceParcouru.push(d);
 		console.log(distanceParcouru);
 
 		dTotal = d + dTotal;
 		
-		targetDiv.innerHTML = "Distance parcouru : " + dTotal + " Km";
+		targetDiv.innerHTML = "Distance parcouru : " + dTotal + " m";
 
 		var u = distanceParcouru.length - 1;
 		var v = distanceParcouru[u] * 1000; //Conversion Km en M
 		vitesse.push(v);
+
+		sec++;
+		time = sec;
+		if(sec === 60){
+			sec = 0;
+			min++;
+		}
+		if(min === 60){
+			min = 0;
+			heure++;
+		}
 
 	}
 
@@ -129,17 +168,11 @@ setInterval( function courseOn() { // Boucle Programme
 	}
 	else { // Arret
 	}
+	totalTime();
+
 
 }, 1000);
 
-function courseOff() { // Gére l'affichage des résultats
-	var dT = distanceTotale(distanceParcouru);
-	var vMax = valeurMax(vitesse);
-	var vMin = valeurMin(vitesse);
 
-	targetDiv.innerHTML = "Distance Totale : " + dT * 1000 + " m";
-	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
-	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
 
-}
 
