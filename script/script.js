@@ -173,7 +173,7 @@ setInterval( function courseOn() { // Boucle Programme
 		if ( sec < 10 && min < 10) {
 			targetDiv1.innerHTML = "0" + min + " : " + "0" + sec;
 		}
-		if (sec >= 10 && min < 10) {
+		if (min >= 10 && sec < 10) {
 			targetDiv1.innerHTML = min + " : " + "0" + sec;
 		}
 		if ( min >= 10 && sec >=  10) {
