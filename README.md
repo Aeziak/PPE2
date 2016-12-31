@@ -3,8 +3,8 @@ TODO :
 
   - CSS
   - Plus de commentaires
-  - Vitesse Moyenne et Temps Total pour le tableau des résultats
-  - Chronométre
+  - Vitesse Moyenne 
+  - Chronométre affiché pendant la course
   - API Google
   - Compilation en APK
   
