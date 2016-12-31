@@ -7,6 +7,8 @@ TODO :
   - Chronométre affiché pendant la course
   - API Google
   - Compilation en APK
+  - Profil de l'utilisateur
+  - Graphique des efforts
   
 Fonctionnalités oppérationelles :
 
