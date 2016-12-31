@@ -92,6 +92,11 @@ function courseOff() { // Gére l'affichage des résultats
 	var dT = distanceTotale(distanceParcouru);
 	var vMax = valeurMax(vitesse);
 	var vMin = valeurMin(vitesse);
+	var somme = 0;
+	for(i = 0; i < vitesse.length; i++){
+		somme += vitesse[i];
+		console.log("vitesse " + vitesse);
+	}
 
 	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
 	var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
@@ -101,10 +106,12 @@ function courseOff() { // Gére l'affichage des résultats
 	targetDiv.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
 	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
 	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
-	targetDiv3.innerHTML = "Vitesse Moyenne : " + (vMin + vMax)/2 + " m/s";
+	targetDiv3.innerHTML = "Vitesse Moyenne : " +  somme/i + " m/s";
 	targetDiv4.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";
 
+
 }
+
 
 setInterval( function courseOn() { // Boucle Programme
 
@@ -159,6 +166,19 @@ setInterval( function courseOn() { // Boucle Programme
 			min = 0;
 			heure++;
 		}
+		if ( sec < 10 && min < 10) {
+			targetDiv1.innerHTML = "0" + min + " : " + "0" + sec;
+		}
+		if (sec >= 10 && min < 10) {
+			targetDiv1.innerHTML = min + " : " + "0" + sec;
+		}
+		if ( min >= 10 && sec >=  10) {
+			targetDiv1.innerHTML = min + " : " + sec;
+		}
+		if ( min < 10 && sec >= 10 ) {
+			targetDiv1.innerHTML = "0" + min + " : " + sec;
+		}
+		
 
 	}
 
@@ -168,7 +188,10 @@ setInterval( function courseOn() { // Boucle Programme
 	else { // Arret
 	}
 
+
 }, 1000);
+
+
 
 
 
