@@ -133,6 +133,8 @@ setInterval( function courseOn() { // Boucle Programme
 	}
 
 	else if ( course === true ) { // Monitoring de la course
+		
+		// Partie distance parcouru
 		var i = parcours.length;
 
 		getPosition();
@@ -155,6 +157,8 @@ setInterval( function courseOn() { // Boucle Programme
 		var u = distanceParcouru.length - 1;
 		var v = distanceParcouru[u] * 1000; //Conversion Km en M
 		vitesse.push(v);
+		
+		// Partie chronométre
 
 		sec++;
 		time = sec;
@@ -190,9 +194,3 @@ setInterval( function courseOn() { // Boucle Programme
 
 
 }, 1000);
-
-
-
-
-
-
