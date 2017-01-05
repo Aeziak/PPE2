@@ -14,6 +14,9 @@
 	      #map {
 	        height: 100%;
 	      }
+	      #button {
+	      	visibility: hidden;
+	      }
 		</style>
 
 	</head>
@@ -21,14 +24,20 @@
 	<body>
     
     	<div id="Oui" style="width : 50%; height : 50%; background-color : green;">
-    		
-    		<button onclick="course = !course; timerStart = !timerStart; console.log(course); off++;">Click me</button>
+    		<button id="button2" onclick="launch = !launch">
+			</button>
+			<button id="reset" onclick="defineProfil(); resetValue = !resetValue">Reset
+			</button>
+
+    		<button id="button" onclick="course = !course; console.log(course); off++; getLocation();">Click me</button>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
-			<div class="Distance" style="margin : auto; padding : auto;"></div>
+			
+			<p id="demo"></p>
+
     	</div>
 		<script src="script/script.js"></script>
 	</body>
