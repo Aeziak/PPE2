@@ -3,11 +3,36 @@
 
 //Initialisation des variables
 
+var latitude1 = 0;
+var longitude1 = 0;
+
+
+var geoloc = document.getElementById("demo");
+
+		setInterval(function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else { 
+				geoloc.innerHTML = "Geolocation is not supported by this browser.";
+			}
+			console.log("mdr");
+		}, 1000);
+
+	function showPosition(position) {
+		geoloc.innerHTML = "Latitude: " + position.coords.latitude + 
+		"<br>Longitude: " + position.coords.longitude;
+		
+		latitude1 = position.coords.latitude;
+		longitude1 = position.coords.longitude;
+		
+		console.log(latitude1);
+}
+
 var objpos = {
 
 	init:function(lat, lng){
-		this.lat = lat;
-		this.lng = lng;
+		this.lat = latitude1;
+		this.lng = longitude1;
 	},
 
 	decrire:function(){
@@ -48,27 +73,7 @@ var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance
 var resetValue = false;
 var launch = false;
 //Initialisation des fonctions
-var latitude1 = 0;
-var longitude1 = 0;
 
-
-var geoloc = document.getElementById("demo");
-
-		function getLocation() {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(showPosition);
-			} else { 
-				geoloc.innerHTML = "Geolocation is not supported by this browser.";
-			}
-		}
-
-	function showPosition(position) {
-		geoloc.innerHTML = "Latitude: " + position.coords.latitude + 
-		"<br>Longitude: " + position.coords.longitude;
-		
-		latitude1 = position.coords.latitude;
-		longitude1 = position.coords.longitude;
-}
 
 function getPosition(){ // Récupère latitude et longitude pour le mettre dans un tableau
 
@@ -140,11 +145,13 @@ function courseOff() { // Gére l'affichage des résultats
 	var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
 	var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
 	var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
+	var targetDiv5 = document.getElementById("Oui").getElementsByClassName("Distance")[5];
 	targetDiv.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
 	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
 	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
 	targetDiv3.innerHTML = "Vitesse Moyenne : " +  somme/i + " m/s";
 	targetDiv4.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";
+	targetDiv5.innerHTML = latitude1 + " " + longitude1;
 
 
 }
@@ -169,8 +176,6 @@ targetDiv9000.innerHTML = nom + " " + prenom;
 if(launch === true){
 	clearInterval(lolololol);
 }
-
-console.log("cc");
 
 }, 1000);
 
@@ -255,7 +260,6 @@ document.getElementById("button").style.visibility = "visible";
 		}
 		else { // Arret
 		}
-
 
 	}, 1000);
 
