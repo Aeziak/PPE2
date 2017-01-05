@@ -16,6 +16,20 @@ var objpos = {
 	}
 };
 
+var profil = {
+
+	initi:function(nom, prenom){
+		this.nom = nom;
+		this.prenom = prenom;
+	},
+
+	decrire:function(){
+		var desc = this.nom + this.prenom;
+		return desc;
+
+	}
+};
+
 var dTotal = 0; // Distance Totale
 var course = false; // Variable booléenne géré par un button qui signale le Début/Fin de la course
 var parcours = []; // Tableau des coordonnées GPS
@@ -25,12 +39,14 @@ var off = 0; // Variable pour gérer l'affichage des résultats
 var sec = 0;
 var min = 0;
 var heure = 0;
+var profile = false;
 var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
 var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
 var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
 var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
 var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
-
+var resetValue = false;
+var launch = false;
 //Initialisation des fonctions
 
 function getPosition(){ // Récupère latitude et longitude pour le mettre dans un tableau
@@ -113,84 +129,113 @@ function courseOff() { // Gére l'affichage des résultats
 }
 
 
-setInterval( function courseOn() { // Boucle Programme
+function defineProfil(){
+	var nom = prompt("Entrez votre nom essevépé");
+	var prenom = prompt("Entrez votre prenom essevépé");
 
-	if ( off === 3 ) { // Pour reset toutes les données lors du début de la seconde course
-		off = 1;
-		dTotal = 0;
-		targetDiv.innerHTML = "";
-		targetDiv1.innerHTML = "";
-		targetDiv2.innerHTML = "";
-		targetDiv3.innerHTML = "";
-		targetDiv4.innerHTML = "";
-		parcours = []; // Tableau des coordonnées GPS
-		distanceParcouru = []; // Tableau des distances
-		vitesse = []; // Tableau des vitesses
-		sec = 0;
-		min = 0;
-		heure = 0;
+		localStorage.setItem("nom", nom);
+		localStorage.setItem("prenom", prenom);
+}
 
-	}
+var lolololol = setInterval ( function() {
 
-	else if ( course === true ) { // Monitoring de la course
-		
-		// Partie distance parcouru
-		var i = parcours.length;
+var nom = localStorage.getItem("nom");
+var prenom = localStorage.getItem("prenom");
 
-		getPosition();
-		getPosition();
+var targetDiv9000 = document.getElementById("button2");
+targetDiv9000.innerHTML = nom + " " + prenom;
 
-		var lat1 = parcours[i].lat;
-		var lat2 = parcours[i + 1].lat;
-		var lon1 = parcours[i].lng;
-		var lon2 = parcours[i + 1].lng;
+if(launch === true){
+	clearInterval(lolololol);
+}
 
-		var d = 1000 * distanceCalcul(lat1, lon1, lat2, lon2);
-		console.log(d);
-		distanceParcouru.push(d);
-		console.log(distanceParcouru);
-
-		dTotal = d + dTotal;
-		
-		targetDiv.innerHTML = "Distance parcouru : " + dTotal + " m";
-
-		var u = distanceParcouru.length - 1;
-		var v = distanceParcouru[u] * 1000; //Conversion Km en M
-		vitesse.push(v);
-		
-		// Partie chronométre
-
-		sec++;
-		time = sec;
-		if(sec === 60){
-			sec = 0;
-			min++;
-		}
-		if(min === 60){
-			min = 0;
-			heure++;
-		}
-		if ( sec < 10 && min < 10) {
-			targetDiv1.innerHTML = "0" + min + " : " + "0" + sec;
-		}
-		if (min >= 10 && sec < 10) {
-			targetDiv1.innerHTML = min + " : " + "0" + sec;
-		}
-		if ( min >= 10 && sec >=  10) {
-			targetDiv1.innerHTML = min + " : " + sec;
-		}
-		if ( min < 10 && sec >= 10 ) {
-			targetDiv1.innerHTML = "0" + min + " : " + sec;
-		}
-		
-
-	}
-
-	else if ( off === 2 ) { // Affichage du Tableau
-		courseOff();
-	}
-	else { // Arret
-	}
-
+console.log("cc");
 
 }, 1000);
+
+document.getElementById("button").style.visibility = "visible";
+console.log("Bonjour ! " + nom + " " + prenom);
+
+	setInterval( function courseOn() { // Boucle Programme
+
+
+		if ( off === 3 ) { // Pour reset toutes les données lors du début de la seconde course
+			off = 1;
+			dTotal = 0;
+			targetDiv.innerHTML = "";
+			targetDiv1.innerHTML = "";
+			targetDiv2.innerHTML = "";
+			targetDiv3.innerHTML = "";
+			targetDiv4.innerHTML = "";
+			parcours = []; // Tableau des coordonnées GPS
+			distanceParcouru = []; // Tableau des distances
+			vitesse = []; // Tableau des vitesses
+			sec = 0;
+			min = 0;
+			heure = 0;
+
+		}
+
+		else if ( course === true ) { // Monitoring de la course
+			
+			// Partie distance parcouru
+			var i = parcours.length;
+
+			getPosition();
+			getPosition();
+
+			var lat1 = parcours[i].lat;
+			var lat2 = parcours[i + 1].lat;
+			var lon1 = parcours[i].lng;
+			var lon2 = parcours[i + 1].lng;
+
+			var d = 1000 * distanceCalcul(lat1, lon1, lat2, lon2);
+			console.log(d);
+			distanceParcouru.push(d);
+			console.log(distanceParcouru);
+
+			dTotal = d + dTotal;
+			
+			targetDiv.innerHTML = "Distance parcouru : " + dTotal + " m";
+
+			var u = distanceParcouru.length - 1;
+			var v = distanceParcouru[u] * 1000; //Conversion Km en M
+			vitesse.push(v);
+			
+			// Partie chronométre
+
+			sec++;
+			time = sec;
+			if(sec === 60){
+				sec = 0;
+				min++;
+			}
+			if(min === 60){
+				min = 0;
+				heure++;
+			}
+			if ( sec < 10 && min < 10) {
+				targetDiv1.innerHTML = "0" + min + " : " + "0" + sec;
+			}
+			if (min >= 10 && sec < 10) {
+				targetDiv1.innerHTML = min + " : " + "0" + sec;
+			}
+			if ( min >= 10 && sec >=  10) {
+				targetDiv1.innerHTML = min + " : " + sec;
+			}
+			if ( min < 10 && sec >= 10 ) {
+				targetDiv1.innerHTML = "0" + min + " : " + sec;
+			}
+			
+
+		}
+
+		else if ( off === 2 ) { // Affichage du Tableau
+			courseOff();
+		}
+		else { // Arret
+		}
+
+
+	}, 1000);
+
