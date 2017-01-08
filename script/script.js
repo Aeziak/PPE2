@@ -30,6 +30,29 @@ var profil = {
 	}
 };
 
+var geoloc = document.getElementById("demo");
+
+		setInterval(function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else { 
+				geoloc.innerHTML = "Geolocation is not supported by this browser.";
+			}
+			console.log("mdr");
+		}, 100000);
+
+	function showPosition(position) {
+		geoloc.innerHTML = "Latitude: " + position.coords.latitude + 
+		"<br>Longitude: " + position.coords.longitude;
+		
+		latitude1 = position.coords.latitude;
+		longitude1 = position.coords.longitude;
+		
+		console.log(latitude1);
+}
+
+var latitude1 = 0;
+var longitude1 = 0
 var dTotal = 0; // Distance Totale
 var course = false; // Variable booléenne géré par un button qui signale le Début/Fin de la course
 var parcours = []; // Tableau des coordonnées GPS
@@ -47,12 +70,33 @@ var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance
 var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
 var resetValue = false;
 var launch = false;
+var latitude1 = 0;
+var longitude1 = 0;
+
 //Initialisation des fonctions
+
+var geoloc = document.getElementById("demo");
+
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else { 
+				geoloc.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		}
+
+	function showPosition(position) {
+		geoloc.innerHTML = "Latitude: " + position.coords.latitude + 
+		"<br>Longitude: " + position.coords.longitude;
+		
+		latitude1 = position.coords.latitude;
+		longitude1 = position.coords.longitude;
+}
 
 function getPosition(){ // Récupère latitude et longitude pour le mettre dans un tableau
 
-	var lat = Math.random();
-	var lng = Math.random(); //Number(prompt("Lng"));
+	var lat = latitude1;
+	var lng = longitude1; //Number(prompt("Lng"));
 	 
 	var i = parcours.length;
 
@@ -137,24 +181,27 @@ function defineProfil(){
 		localStorage.setItem("prenom", prenom);
 }
 
-var lolololol = setInterval ( function() {
+var chooseProfil = setInterval ( function() {
 
-var nom = localStorage.getItem("nom");
-var prenom = localStorage.getItem("prenom");
+	var nom = localStorage.getItem("nom");
+	var prenom = localStorage.getItem("prenom");
+	var targetDiv9 = document.getElementById("buttonLaunch");
+	targetDiv9.innerHTML = nom + " " + prenom;
+	if ( nom === null ) {
+		defineProfil();
+	}
+	
+	else if (launch === true) {
+		clearInterval(chooseProfil);
+		document.getElementById("buttonStart").style.visibility = "visible";	
 
-var targetDiv9000 = document.getElementById("button2");
-targetDiv9000.innerHTML = nom + " " + prenom;
+		var elem = document.getElementById("buttonLaunch");
+ 		elem.parentElement.removeChild(elem);
+ 		elem = document.getElementById("reset");
+ 		elem.parentElement.removeChild(elem);
+	}
 
-if(launch === true){
-	clearInterval(lolololol);
-}
-
-console.log("cc");
-
-}, 1000);
-
-document.getElementById("button").style.visibility = "visible";
-console.log("Bonjour ! " + nom + " " + prenom);
+}, 10);
 
 	setInterval( function courseOn() { // Boucle Programme
 
@@ -167,6 +214,7 @@ console.log("Bonjour ! " + nom + " " + prenom);
 			targetDiv2.innerHTML = "";
 			targetDiv3.innerHTML = "";
 			targetDiv4.innerHTML = "";
+			targetDiv5.innerHTML = "";
 			parcours = []; // Tableau des coordonnées GPS
 			distanceParcouru = []; // Tableau des distances
 			vitesse = []; // Tableau des vitesses
@@ -192,7 +240,6 @@ console.log("Bonjour ! " + nom + " " + prenom);
 			var d = 1000 * distanceCalcul(lat1, lon1, lat2, lon2);
 			console.log(d);
 			distanceParcouru.push(d);
-			console.log(distanceParcouru);
 
 			dTotal = d + dTotal;
 			
