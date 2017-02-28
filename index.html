@@ -4,31 +4,36 @@
 
 	<head>
 		<meta charset="utf-8"/>
-		<title>QSDKOJSQNSJKDNS</title>
-		<link rel="stylesheet" href="css.css">
+		<title>La Banane Jaune</title>
+		<link rel="stylesheet" href="css/css.css">
+		
 
 	</head>
 
 	<body>
     
     	<div id="Oui">
-    		<button id="buttonLaunch" onclick="launch = !launch">
-			</button>
-			<button id="reset" onclick="defineProfil(); resetValue = !resetValue">Reset
-			</button>
+    	<div id ="Container"></div>
+    		<button id="buttonLaunch" onclick="launch = !launch"></button>
+			<button id="reset" onclick="defineProfil(); resetValue = !resetValue">Reset</button>
 
-    		<button id="buttonStart" onclick="course = !course; console.log(course); off++; getLocation();">Click me</button>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
+    		
 			
 			<p id="demo"></p>
 
+
+			<script src="script/script.js"></script>
+			<script src="script/gps.js"></script>
+			<script src="script/buttons.js"></script>
+
     	</div>
-		<script src="script/script.js"></script>
+		
 	</body>
 
 </html>
