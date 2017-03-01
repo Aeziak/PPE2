@@ -57,21 +57,9 @@ var repeat = true;
 var ID = 0;
 var score = 0;
 var date = new Date();
+var parcoursLaunchVerifability = false;
 
 //Initialisation des fonctions
-
-function getPosition(){ // Récupère latitude et longitude pour le mettre dans un tableau
-
-	var lat = Number(prompt("Lat (44.4 ; 48.85"));
-	var lng = Number(prompt("Lng (4.75 ; 2.34"));
-	 
-	var i = parcours.length;
-
-	objpos[i] = Object.create(objpos);
-	objpos[i].init(lat, lng);
-
-	parcours.push(objpos[i]);
-}
 
 
 function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entre 2 coordonnées GPS
@@ -219,18 +207,20 @@ function setDate (){
 		else if ( course === true ) { // Monitoring de la course
 
 			// Partie distance parcouru
-			var i = parcours.length - 1;
+			var i = parcours.length - 2;
 
 			getPosition();
 			console.log("dTotal : " + d);
 
 			console.log(parcours);
-			if ( parcours[i + 1] != undefined) {
+			if ( parcoursLaunchVerifability === true) {
 				var lat1 = parcours[i].lat;
+				console.log("i + 1");
+				console.log(i + 1);
 				var lat2 = parcours[i + 1].lat;
 				var lon1 = parcours[i].lng;
 				var lon2 = parcours[i + 1].lng;
-
+				console.log("Je fais le calcul");
 				d = 1000 * distanceCalcul(lat1, lon1, lat2, lon2);
 				distanceParcouru.push(d);
 				

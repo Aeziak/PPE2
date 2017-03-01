@@ -11,37 +11,28 @@ objpos[0].init(lat, lng);
 parcours.push(objpos[0]);
 
 
- setInterval(function getLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showPosition);
-		} else {
-			geoloc.innerHTML = "Geolocation is not supported by this browser.";
-		}
-	}, 10000);
-
-			function showPosition(position) {
-			geoloc.innerHTML = "Latitude: " + position.coords.latitude +
-			"<br>Longitude: " + position.coords.longitude;
-
-			latitude1 = position.coords.latitude;
-			longitude1 = position.coords.longitude;
-
-	}
-
-	navigator.geolocation.watchPosition(showPosition);
 
 function getPosition(){ // Récupère latitude et longitude pour le mettre dans un tableau
 
+	navigator.geolocation.watchPosition(function(location) {
+		console.log(location.coords.latitude);
+		console.log(location.coords.longitude);
 
-	var lat = latitude1;
-	var lng = longitude1;
+		lat = location.coords.latitude;
+		lng = location.coords.longitude;
+  		var i2 = parcours.length;
 
-  	var i = parcours.length;
+		objpos[i2] = Object.create(objpos);
+		objpos[i2].init(lat, lng);
 
-	objpos[i] = Object.create(objpos);
-	objpos[i].init(lat, lng);
+		parcours.push(objpos[i2]);
 
-	parcours.push(objpos[i]);
+		parcoursLaunchVerifability = true;
+
+		});
+	
+
+
 
 }
 

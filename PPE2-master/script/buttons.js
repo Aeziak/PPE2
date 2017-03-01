@@ -178,7 +178,7 @@ function affichageHisto() {
 		var divScore = document.createElement("div");
 
 		divScore.id = i + "Score";
-		divScore.innerHTML = "Score : " + scoreH + " Date : " + dateH;
+		divScore.innerHTML = dateH + " : " + scoreH + " ISSOU";
 
 		document.getElementById("Container").appendChild(divScore);
 
