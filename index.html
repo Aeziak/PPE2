@@ -5,42 +5,37 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>QSDKOJSQNSJKDNS</title>
-		<style>
-	      html, body {
-	        height: 100%;
-	        margin: 0;
-	        padding: 0;
-	      }
-	      #map {
-	        height: 100%;
-	      }
-	      #button {
-	      	visibility: hidden;
-	      }
-		</style>
+		<link rel="stylesheet" href="css.css">
+		
 
 	</head>
 
 	<body>
     
-    	<div id="Oui" style="width : 50%; height : 50%; background-color : green;">
-    		<button id="button2" onclick="launch = !launch">
-			</button>
-			<button id="reset" onclick="defineProfil(); resetValue = !resetValue">Reset
-			</button>
+    	<div id="Oui">
+    		
+    		<button id="buttonLaunch" onclick="launch = !launch"></button>
+			<button id="reset" onclick="defineProfil(); resetValue = !resetValue">Reset</button>
+			
 
-    		<button id="button" onclick="course = !course; console.log(course); off++; getLocation();">Click me</button>
+    		<button id="buttonStart" onclick="course = !course; console.log(course); off++;">Click me</button>
+    		<button id="buttonPause" onclick="course = !course; buttonResetCheck = !buttonResetCheck ;">Pause</button>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
 			<div class="Distance" style="margin : auto; padding : auto;"></div>
+			<button id="End" onclick="courseOff(); course = !course;">Fin</button>
 			
 			<p id="demo"></p>
 
+
+			<script src="script/script.js"></script>
+			<script src="script/gps.js"></script>
+
     	</div>
-		<script src="script/script.js"></script>
+		
 	</body>
 
 </html>

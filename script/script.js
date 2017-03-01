@@ -1,38 +1,15 @@
+//http://www.l-itineraire.com/distanceentre-garde-adhemar-et-paris
+
 //Début du programme
 
 
 //Initialisation des variables
 
-var latitude1 = 0;
-var longitude1 = 0;
-
-
-var geoloc = document.getElementById("demo");
-
-		setInterval(function getLocation() {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(showPosition);
-			} else { 
-				geoloc.innerHTML = "Geolocation is not supported by this browser.";
-			}
-			console.log("mdr");
-		}, 1000);
-
-	function showPosition(position) {
-		geoloc.innerHTML = "Latitude: " + position.coords.latitude + 
-		"<br>Longitude: " + position.coords.longitude;
-		
-		latitude1 = position.coords.latitude;
-		longitude1 = position.coords.longitude;
-		
-		console.log(latitude1);
-}
-
-var objpos = {
+var objpos = { //Variable objet contenant la latitude et la longitude
 
 	init:function(lat, lng){
-		this.lat = latitude1;
-		this.lng = longitude1;
+		this.lat = lat;
+		this.lng = lng;
 	},
 
 	decrire:function(){
@@ -41,7 +18,7 @@ var objpos = {
 	}
 };
 
-var profil = {
+var profil = { //Profil de l'utilisateur
 
 	initi:function(nom, prenom){
 		this.nom = nom;
@@ -72,13 +49,17 @@ var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance
 var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
 var resetValue = false;
 var launch = false;
-//Initialisation des fonctions
+var d = 0;
+var buttonLaunchVisibility = false;
+var buttonResetCheck = true;
+var upo = true;
 
+//Initialisation des fonctions
 
 function getPosition(){ // Récupère latitude et longitude pour le mettre dans un tableau
 
-	var lat = latitude1;
-	var lng = longitude1; //Number(prompt("Lng"));
+	var lat = Number(prompt("Lat (44.4 ; 48.85"));
+	var lng = Number(prompt("Lng (4.75 ; 2.34"));
 	 
 	var i = parcours.length;
 
@@ -86,6 +67,76 @@ function getPosition(){ // Récupère latitude et longitude pour le mettre dans 
 	objpos[i].init(lat, lng);
 
 	parcours.push(objpos[i]);
+}
+
+
+function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entre 2 coordonnées GPS
+	  var p = 0.017453292519943295;    // Math.PI / 180
+	  var c = Math.cos;
+	  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+		         c(lat1 * p) * c(lat2 * p) * 
+		         (1 - c((lon2 - lon1) * p))/2;
+
+	 return Math.round(12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
+}
+
+
+
+function defineProfil(){ //Fonction pour créer le profil de l'utilisateur
+	var nom = prompt("Entrez votre nom ");
+	var prenom = prompt("Entrez votre prenom ");
+
+		localStorage.setItem("nom", nom);
+		localStorage.setItem("prenom", prenom);
+}
+
+var chooseProfil = setInterval ( function() { //Gére l'affichage des boutons
+
+	var nom = localStorage.getItem("nom");
+	var prenom = localStorage.getItem("prenom");
+	var targetDiv9 = document.getElementById("buttonLaunch");
+	targetDiv9.innerHTML = nom + " " + prenom;
+	if ( nom === null ) {
+		defineProfil();
+	}
+	
+	else if (launch === true) {
+		clearInterval(chooseProfil);
+		document.getElementById("buttonStart").style.visibility = "visible";	
+
+		var elem = document.getElementById("buttonLaunch");
+ 		elem.parentElement.removeChild(elem);
+ 		elem = document.getElementById("reset");
+ 		elem.parentElement.removeChild(elem);
+	}
+
+}, 10);
+
+function courseOff() { // Gére l'affichage des résultats
+
+	//Calcul des données
+	var dT = distanceTotale(distanceParcouru);
+	var vMax = valeurMax(vitesse);
+	var vMin = valeurMin(vitesse);
+	var somme = 0;
+	for(i = 0; i < vitesse.length; i++){
+		somme += vitesse[i];
+	}
+
+	//Affichage des données
+	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
+	var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
+	var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
+	var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
+	var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
+	targetDiv.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
+	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
+	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
+	targetDiv3.innerHTML = "Vitesse Moyenne : " +  somme/i + " m/s";
+	targetDiv4.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";
+	document.getElementById("buttonStart").style.visibility = "visible";
+
+
 }
 
 function distanceTotale (distanceParcouru) { // Additionne toutes les distances
@@ -120,69 +171,23 @@ function valeurMin (vitesse) { // Cherche la vitesse Min atteinte
 
 }
 
-function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entre 2 coordonnées GPS
-	  var p = 0.017453292519943295;    // Math.PI / 180
-	  var c = Math.cos;
-	  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
-		         c(lat1 * p) * c(lat2 * p) * 
-		         (1 - c((lon2 - lon1) * p))/2;
-
-	 return Math.round(12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
-}
-
-function courseOff() { // Gére l'affichage des résultats
-	var dT = distanceTotale(distanceParcouru);
-	var vMax = valeurMax(vitesse);
-	var vMin = valeurMin(vitesse);
-	var somme = 0;
-	for(i = 0; i < vitesse.length; i++){
-		somme += vitesse[i];
-		console.log("vitesse " + vitesse);
-	}
-
-	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
-	var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
-	var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
-	var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
-	var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
-	var targetDiv5 = document.getElementById("Oui").getElementsByClassName("Distance")[5];
-	targetDiv.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
-	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
-	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
-	targetDiv3.innerHTML = "Vitesse Moyenne : " +  somme/i + " m/s";
-	targetDiv4.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";
-	targetDiv5.innerHTML = latitude1 + " " + longitude1;
 
 
-}
-
-
-function defineProfil(){
-	var nom = prompt("Entrez votre nom essevépé");
-	var prenom = prompt("Entrez votre prenom essevépé");
-
-		localStorage.setItem("nom", nom);
-		localStorage.setItem("prenom", prenom);
-}
-
-var lolololol = setInterval ( function() {
-
-var nom = localStorage.getItem("nom");
-var prenom = localStorage.getItem("prenom");
-
-var targetDiv9000 = document.getElementById("button2");
-targetDiv9000.innerHTML = nom + " " + prenom;
-
-if(launch === true){
-	clearInterval(lolololol);
-}
-
-}, 1000);
-
-document.getElementById("button").style.visibility = "visible";	
 
 	setInterval( function courseOn() { // Boucle Programme
+		console.log(off);
 
+		if(course === false && buttonResetCheck === false ){
+			document.getElementById("End").style.visibility = "visible";
+			upo = false;
+
+		}
+
+		if (course === true && upo === false) {
+			off = 3;
+			upo = true;
+			document.getElementById("End").style.visibility = "hidden";
+		}
 
 		if ( off === 3 ) { // Pour reset toutes les données lors du début de la seconde course
 			off = 1;
@@ -202,30 +207,37 @@ document.getElementById("button").style.visibility = "visible";
 		}
 
 		else if ( course === true ) { // Monitoring de la course
-			
+			if(buttonLaunchVisibility === false){
+				var elem = document.getElementById("buttonStart");
+		 		elem.parentElement.removeChild(elem);
+		 		document.getElementById("buttonPause").style.visibility = "visible";
+		 		buttonLaunchVisibility = true;
+		 	}
 			// Partie distance parcouru
-			var i = parcours.length;
+			var i = parcours.length - 1;
 
 			getPosition();
-			getPosition();
+			console.log("dTotal : " + d);
 
-			var lat1 = parcours[i].lat;
-			var lat2 = parcours[i + 1].lat;
-			var lon1 = parcours[i].lng;
-			var lon2 = parcours[i + 1].lng;
+			console.log(parcours);
+			if ( parcours[i + 1] != undefined) {
+				var lat1 = parcours[i].lat;
+				var lat2 = parcours[i + 1].lat;
+				var lon1 = parcours[i].lng;
+				var lon2 = parcours[i + 1].lng;
 
-			var d = 1000 * distanceCalcul(lat1, lon1, lat2, lon2);
-			console.log(d);
-			distanceParcouru.push(d);
-			console.log(distanceParcouru);
-
+				d = 1000 * distanceCalcul(lat1, lon1, lat2, lon2);
+				distanceParcouru.push(d);
+				
+				var u = distanceParcouru.length - 1;
+				var v = distanceParcouru[u] * 1000; //Conversion Km en M
+				vitesse.push(v);
+			}
 			dTotal = d + dTotal;
 			
 			targetDiv.innerHTML = "Distance parcouru : " + dTotal + " m";
 
-			var u = distanceParcouru.length - 1;
-			var v = distanceParcouru[u] * 1000; //Conversion Km en M
-			vitesse.push(v);
+			
 			
 			// Partie chronométre
 
@@ -260,6 +272,7 @@ document.getElementById("button").style.visibility = "visible";
 		}
 		else { // Arret
 		}
+
 
 	}, 1000);
 
