@@ -187,8 +187,10 @@ function setDate (){
 			localStorage.setItem( "Date" + ID, date);
 			ID++;
 			localStorage.setItem("ID", ID);
-			off = 0;
 			dTotal = 0;
+			score = 0;
+			km1 = 0;
+			m1 = 0;
 			targetDiv.innerHTML = "";
 			targetDiv1.innerHTML = "";
 			targetDiv2.innerHTML = "";
@@ -200,6 +202,7 @@ function setDate (){
 			sec = 0;
 			min = 0;
 			heure = 0;
+			off = 0;
 
 		}
 

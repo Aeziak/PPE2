@@ -3,7 +3,7 @@
 var launch = false;
 var upo = true;
 var buttonResetCheck = true;
-var oui = document.getElementById("Container"); buttonResetCheck = true;
+var oui = document.getElementById("Container");
 var ouioui = document.getElementById("Oui");
 var iamTheBooleanOfMyCode = false; // Booléene pour appeller UnlimitedFunction();
 var prenom = "Prenom";
@@ -287,7 +287,7 @@ function openOptionScreen() {
     targetDivBRe.innerHTML = "Retour";
 
     document.getElementById("buttonRetour").onclick = function() { elem = document.getElementById("buttonRetour");
-	elem.parentElement.removeChild(elem); returnMenu();}
+	elem.parentElement.removeChild(elem); returnMenu(); }
 }
 
 
@@ -341,7 +341,7 @@ function inputDefineProfil() { //Sauvegarde les entrées de l'utilisateur si dif
  
 
 function InstantiateReset(){
-	if(course === false && buttonResetCheck === false ){
+	if(course === false && buttonResetCheck === false ){ //Pause
 		
 	 	upo = false;
 
@@ -355,7 +355,7 @@ function InstantiateReset(){
 	 	console.log("JA");
 	}
 
-	if (course === true && upo === false) {
+	if (course === true && upo === false) { //Reprise de course
 
 		upo = true;
 
@@ -370,7 +370,7 @@ function InstantiateReset(){
 
 }
 
-function UnlimitedFunction(){
+function UnlimitedFunction(){ //Fin de course retour au menu
 	deleteBidule();
 	off = 3;
 
