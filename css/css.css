@@ -33,6 +33,7 @@ button {
   margin-top: 50px;
   width: 50%;
   height:30%;
+
   
 }
 
@@ -54,4 +55,9 @@ button:hover {
 	display: flex;
 	flex-direction: column;
 	min-height: 700px;
+}
+
+#Container {
+  display: flex;
+  flex-direction: column
 }

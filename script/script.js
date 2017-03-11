@@ -20,7 +20,7 @@ var objpos = { //Variable objet contenant la latitude et la longitude
 
 var profil = { //Profil de l'utilisateur
 
-	initi:function(nom, prenom){
+	init:function(nom, prenom){
 		this.nom = nom;
 		this.prenom = prenom;
 	},
@@ -32,6 +32,10 @@ var profil = { //Profil de l'utilisateur
 	}
 };
 
+
+
+
+console.log(localStorage);
 var dTotal = 0; // Distance Totale
 var course = false; // Variable booléenne géré par un button qui signale le Début/Fin de la course
 var parcours = []; // Tableau des coordonnées GPS
@@ -50,22 +54,14 @@ var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance
 var resetValue = false;
 var d = 0;
 var repeat = true;
-
+var ID = 0;
+var score = 0;
+var date = new Date();
+var l = 0;
+var km1 = 0;
+var m1 = 0;
 
 //Initialisation des fonctions
-
-function getPosition(){ // Récupère latitude et longitude pour le mettre dans un tableau
-
-	var lat = Number(prompt("Lat (44.4 ; 48.85"));
-	var lng = Number(prompt("Lng (4.75 ; 2.34"));
-	 
-	var i = parcours.length;
-
-	objpos[i] = Object.create(objpos);
-	objpos[i].init(lat, lng);
-
-	parcours.push(objpos[i]);
-}
 
 
 function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entre 2 coordonnées GPS
@@ -75,7 +71,7 @@ function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entr
 		         c(lat1 * p) * c(lat2 * p) * 
 		         (1 - c((lon2 - lon1) * p))/2;
 
-	 return Math.round(12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
+	 return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
 
@@ -93,12 +89,15 @@ function courseOff() { // Gére l'affichage des résultats
 
 	//Calcul des données
 	var dT = distanceTotale(distanceParcouru);
-	var vMax = valeurMax(vitesse);
+	var tT = sec + min*60 + heure*3600
+	/*var vMax = valeurMax(vitesse);
 	var vMin = valeurMin(vitesse);
 	var somme = 0;
 	for(i = 0; i < vitesse.length; i++){
 		somme += vitesse[i];
-	}
+	}*/
+
+	score = dT/10 - Math.round(tT*0.2);
 
 	//Affichage des données
 	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
@@ -106,11 +105,9 @@ function courseOff() { // Gére l'affichage des résultats
 	var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
 	var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
 	var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
-	targetDiv.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
-	targetDiv1.innerHTML = "Vitesse Maximale : " + vMax + " m/s";
-	targetDiv2.innerHTML = "Vitesse Minimale : " + vMin + " m/s";
-	targetDiv3.innerHTML = "Vitesse Moyenne : " +  somme/i + " m/s";
-	targetDiv4.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";
+	targetDiv.innerHTML = "Score : " + score + " ISSOU";
+	targetDiv1.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
+	targetDiv2.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";
 	var targetDivBE = document.getElementById("buttonEnd");
 	targetDivBE.innerHTML = "Return";
 
@@ -124,7 +121,7 @@ function distanceTotale (distanceParcouru) { // Additionne toutes les distances
 	}
 	return d;
 }
-
+/*
 function valeurMax (vitesse) { // Cherche la vitesse Max atteinte
 	var vMax = 0;
 	for (var i = 0; i < vitesse.length; i++) {
@@ -148,11 +145,34 @@ function valeurMin (vitesse) { // Cherche la vitesse Min atteinte
 	return vMin;
 
 }
+*/
+function setID() {
+	var setIDStorage = localStorage.getItem("ID");
+	if ( setIDStorage != ID  && setIDStorage != null) {
+		ID = setIDStorage;
+		console.log("ID : " + ID);
+	}
+
+	console.log("ID : " + ID + "NEIN");
+}
 
 
- 
+function setDate (){
+	var dd = date.getDay();
+	var mm = date.getMonth()+1; //January is 0!
+	var yyyy = date.getFullYear();
 
+	if(dd<10) {
+	    dd='0'+dd
+	} 
 
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	date = dd+'/'+mm+'/'+yyyy;
+	console.log("DATE" + date);
+}
 
 
 	setInterval( function courseOn() { // Boucle Programme
@@ -162,8 +182,14 @@ function valeurMin (vitesse) { // Cherche la vitesse Min atteinte
 		repeat = true;
 		}
 
-
 		if ( off === 3 ) { // Pour reset toutes les données lors du début de la seconde course
+
+			setDate();
+			setID();
+			localStorage.setItem( "Score" + ID, score);
+			localStorage.setItem( "Date" + ID, date);
+			ID++;
+			localStorage.setItem("ID", ID);
 			off = 0;
 			dTotal = 0;
 			targetDiv.innerHTML = "";
@@ -183,18 +209,21 @@ function valeurMin (vitesse) { // Cherche la vitesse Min atteinte
 		else if ( course === true ) { // Monitoring de la course
 
 			// Partie distance parcouru
-			var i = parcours.length - 1;
-
-			getPosition();
+			var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, { frequency: 100 });
 			console.log("dTotal : " + d);
 
 			console.log(parcours);
-			if ( parcours[i + 1] != undefined) {
-				var lat1 = parcours[i].lat;
-				var lat2 = parcours[i + 1].lat;
-				var lon1 = parcours[i].lng;
-				var lon2 = parcours[i + 1].lng;
+			if ( parcours[l + 1] != undefined) {
 
+				var lat1 = parcours[l].lat;
+				var lon1 = parcours[l].lng;
+
+				var lat2 = parcours[l + 1].lat;
+				var lon2 = parcours[l + 1].lng;
+
+				l++;
+
+				console.log("Je fais le calcul");
 				d = 1000 * distanceCalcul(lat1, lon1, lat2, lon2);
 				distanceParcouru.push(d);
 				
@@ -203,9 +232,53 @@ function valeurMin (vitesse) { // Cherche la vitesse Min atteinte
 				vitesse.push(v);
 			}
 			dTotal = d + dTotal;
+			console.log(dTotal);
 			
-			targetDiv.innerHTML = "Distance parcouru : " + dTotal + " m";
+			if ( dTotal > 100) {
+				m1 = 1;
+			}
 
+			if ( dTotal > 200) {
+				m1 = 2;
+			}
+
+			if ( dTotal > 300) {
+				m1 = 3;
+			}
+
+			if ( dTotal > 400) {
+				m1 = 4;
+			}
+
+			if ( dTotal > 500) {
+				m1 = 5;
+			}
+
+			if ( dTotal > 600) {
+				m1 = 6;
+			}
+
+			if ( dTotal > 700) {
+				m1 = 7;
+			}
+
+			if ( dTotal > 800) {
+				m1 = 8;
+			}
+
+			if ( dTotal > 900) {
+				m1 = 9;
+			}
+
+			if ( dTotal > 1000 ) {
+				dTotal = 0;
+				d = 0;
+				m1 = 0;
+				km1++;
+			}
+			
+
+			targetDiv.innerHTML = "Distance parcouru : " + km1 + "," + m1 + " km";
 			
 			
 			// Partie chronométre
@@ -232,6 +305,8 @@ function valeurMin (vitesse) { // Cherche la vitesse Min atteinte
 			if ( min < 10 && sec >= 10 ) {
 				targetDiv1.innerHTML = "0" + min + " : " + sec;
 			}
+
+			date = new Date();
 			
 
 		}

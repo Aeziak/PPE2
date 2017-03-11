@@ -11,37 +11,36 @@ objpos[0].init(lat, lng);
 parcours.push(objpos[0]);
 
 
- setInterval(function getLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showPosition);
-		} else {
-			geoloc.innerHTML = "Geolocation is not supported by this browser.";
-		}
-	}, 10000);
 
-			function showPosition(position) {
-			geoloc.innerHTML = "Latitude: " + position.coords.latitude +
-			"<br>Longitude: " + position.coords.longitude;
+function onSuccess(position) {
+    var element = document.getElementById('demo');
+    element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
+                        'Longitude: ' + position.coords.longitude     + '<br />' +
+                        '<hr />'      + element.innerHTML;
+    lat = position.coords.latitude + Math.random();
+	lng = position.coords.longitude + Math.random();	
 
-			latitude1 = position.coords.latitude;
-			longitude1 = position.coords.longitude;
+	var i2 = parcours.length;
 
-	}
+	objpos[i2] = Object.create(objpos);
+	objpos[i2].init(lat, lng);
 
-	navigator.geolocation.watchPosition(showPosition);
+	parcours.push(objpos[i2]);
 
-function getPosition(){ // Récupère latitude et longitude pour le mettre dans un tableau
-
-
-	var lat = latitude1;
-	var lng = longitude1;
-
-  	var i = parcours.length;
-
-	objpos[i] = Object.create(objpos);
-	objpos[i].init(lat, lng);
-
-	parcours.push(objpos[i]);
-
+	parcoursLaunchVerifability = true;
 }
+
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+// Options: retrieve the location every 3 seconds
+//
+
+
+
+	
 
