@@ -51,7 +51,6 @@ var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance
 var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
 var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
 var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
-var resetValue = false;
 var d = 0;
 var repeat = true;
 var ID = 0;
@@ -60,6 +59,11 @@ var date = new Date();
 var l = 0;
 var km1 = 0;
 var m1 = 0;
+
+var nom = localStorage.getItem("nom");
+var prenom = localStorage.getItem("prenom");
+var targetDiv9 = document.getElementById("buttonLaunch");
+targetDiv9.innerHTML = nom + " " + prenom;
 
 //Initialisation des fonctions
 
@@ -76,14 +80,6 @@ function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entr
 
 
 
-function defineProfil(){ //Fonction pour créer le profil de l'utilisateur
-	var nom = prompt("Entrez votre nom ");
-	var prenom = prompt("Entrez votre prenom ");
-
-		localStorage.setItem("nom", nom);
-		localStorage.setItem("prenom", prenom);
-}
-
 
 function courseOff() { // Gére l'affichage des résultats
 
@@ -97,7 +93,8 @@ function courseOff() { // Gére l'affichage des résultats
 		somme += vitesse[i];
 	}*/
 
-	score = dT/10 - Math.round(tT*0.2);
+	score = Math.round(dT/10) - Math.round(tT*0.2);
+	deletePause();
 
 	//Affichage des données
 	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
