@@ -100,7 +100,7 @@ elementB55.type = "button";
 elementB55.value = "HistoGraph"; 
 elementB55.id = "buttonGraph";
 elementB55.onclick = function() { 
-	
+	createGraph();
 };
 
 
