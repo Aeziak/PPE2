@@ -97,11 +97,11 @@ function courseOff() { // Gére l'affichage des résultats
 	deletePause();
 
 	//Affichage des données
-	var targetDiv = document.getElementById("Oui").getElementsByClassName("Distance")[0];
-	var targetDiv1 = document.getElementById("Oui").getElementsByClassName("Distance")[1];
-	var targetDiv2 = document.getElementById("Oui").getElementsByClassName("Distance")[2];
-	var targetDiv3 = document.getElementById("Oui").getElementsByClassName("Distance")[3];
-	var targetDiv4 = document.getElementById("Oui").getElementsByClassName("Distance")[4];
+	var targetDiv = document.getElementById("Container1").getElementsByClassName("Distance")[0];
+	var targetDiv1 = document.getElementById("Container1").getElementsByClassName("Distance")[1];
+	var targetDiv2 = document.getElementById("Container1").getElementsByClassName("Distance")[2];
+	var targetDiv3 = document.getElementById("Container1").getElementsByClassName("Distance")[3];
+	var targetDiv4 = document.getElementById("Container1").getElementsByClassName("Distance")[4];
 	targetDiv.innerHTML = "Score : " + score + " ISSOU";
 	targetDiv1.innerHTML = "Distance Totale : " + dTotal * 1000 + " m";
 	targetDiv2.innerHTML = "En : " + heure + " heure(s) " + min + " minute(s) " + sec + " seconde(s)";

@@ -162,11 +162,11 @@ function deleteFirstScreen() {
 
 function returnFirstScreen() {
 
-	Container1.appendChild(elementB11);
+	Container2.appendChild(elementB11);
 	var targetDivBSt = document.getElementById("buttonLaunch");
     targetDivBSt.innerHTML = nom + " " + prenom;
 
-	Container1.appendChild(elementB22);
+	Container2.appendChild(elementB22);
 	var targetDivBRe = document.getElementById("buttonReset");
     targetDivBRe.innerHTML = "Reset";
 
@@ -187,7 +187,7 @@ function deleteMachin(){ //Delete le Screen 2 pour passer au screen 3
 
 	deleteSecondScreen();
 
-    Container1.appendChild(elementB1);
+    Container2.appendChild(elementB1);
 	var targetDivBP = document.getElementById("buttonPause");
     targetDivBP.innerHTML = "Pause";
 
@@ -229,7 +229,7 @@ function deleteChose() { //Delet l'écran 2 pour passer à l'écran d'historique
 	BottomContainer.appendChild(elementB4);
 	var targetDivBRe = document.getElementById("buttonRetour");
     targetDivBRe.innerHTML = "Retour";
-    
+
     document.getElementById("buttonRetour").onclick = function() {
     		clearHisto();
     		returnMenu(); 
@@ -323,14 +323,14 @@ function defineProfil() {
 	profilInputFieldNom.id = "inputFieldNom";
     profilInputFieldNom.setAttribute("type", "text");
     profilInputFieldNom.setAttribute("value", "Nom");
-    document.body.appendChild(profilInputFieldNom);
+    Container2.appendChild(profilInputFieldNom);
 
     //Prenom
     var profilInputFieldPrenom = document.createElement("INPUT");
     profilInputFieldPrenom.id = "inputFieldPrenom";
     profilInputFieldPrenom.setAttribute("type", "text");
     profilInputFieldPrenom.setAttribute("value", "Prenom");
-    document.body.appendChild(profilInputFieldPrenom);
+    Container2.appendChild(profilInputFieldPrenom);
 
     //Button pour sauvegarder les entrée
     Container1.appendChild(elementB9);
@@ -360,6 +360,17 @@ function inputDefineProfil() { //Sauvegarde les entrées de l'utilisateur si dif
 	}
 }
  
+ /*
+
+
+								 IL FAUT RENDRE COMPREHENSIBLE CETTE MERDE
+								 IL FAUT RENDRE COMPREHENSIBLE CETTE MERDE
+								 IL FAUT RENDRE COMPREHENSIBLE CETTE MERDE
+								 IL FAUT RENDRE COMPREHENSIBLE CETTE MERDE
+
+
+
+ */
 
 function InstantiateReset(){
 	if(course === false && buttonResetCheck === false ){ //Pause
@@ -392,7 +403,7 @@ function InstantiateReset(){
 }
 
 function UnlimitedFunction(){ //Fin de course retour au menu
-	deletedEnd();
+	deleteEnd();
 	off = 3;
 
 	returnMenu();
