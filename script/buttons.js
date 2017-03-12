@@ -3,8 +3,9 @@
 var launch = false;
 var upo = true;
 var buttonResetCheck = true;
-var oui = document.getElementById("Container");
-var ouioui = document.getElementById("Oui");
+var Container2 = document.getElementById("Container2");
+var Container1 = document.getElementById("Container1");
+var BottomContainer = document.getElementById("BottomContainer");
 var iamTheBooleanOfMyCode = false; // Booléene pour appeller UnlimitedFunction();
 var prenom = "Prenom";
 var nom = "Nom";
@@ -76,7 +77,7 @@ elementB6.onclick = function() {
 	deleteChose();
 };
 
-var elementB33 = document.createElement("button"); // Button Historique
+var elementB33 = document.createElement("button"); // Button pour retourner au 1er écran
 elementB33.type = "button";
 elementB33.value = "retourChoixProfil"; 
 elementB33.id = "buttonReturnToProfil";
@@ -85,13 +86,23 @@ elementB33.onclick = function() {
 	returnFirstScreen();
 };
 
-var elementB44 = document.createElement("button"); // Button Historique
+var elementB44 = document.createElement("button"); // Button Option
 elementB44.type = "button";
 elementB44.value = "Option"; 
 elementB44.id = "buttonOption";
 elementB44.onclick = function() { 
 	openOptionScreen();
 };
+
+
+var elementB55 = document.createElement("button"); // Button Graph de l'historique
+elementB55.type = "button";
+elementB55.value = "HistoGraph"; 
+elementB55.id = "buttonGraph";
+elementB55.onclick = function() { 
+	
+};
+
 
 var elementB3 = document.createElement("button"); //Button pour mettre fin à la course et afficher le score
 elementB3.id = "buttonEnd";
@@ -151,11 +162,11 @@ function deleteFirstScreen() {
 
 function returnFirstScreen() {
 
-	oui.appendChild(elementB11);
+	Container1.appendChild(elementB11);
 	var targetDivBSt = document.getElementById("buttonLaunch");
     targetDivBSt.innerHTML = nom + " " + prenom;
 
-	oui.appendChild(elementB22);
+	Container1.appendChild(elementB22);
 	var targetDivBRe = document.getElementById("buttonReset");
     targetDivBRe.innerHTML = "Reset";
 
@@ -176,14 +187,14 @@ function deleteMachin(){ //Delete le Screen 2 pour passer au screen 3
 
 	deleteSecondScreen();
 
-    oui.appendChild(elementB1);
+    Container1.appendChild(elementB1);
 	var targetDivBP = document.getElementById("buttonPause");
     targetDivBP.innerHTML = "Pause";
 
 }
 
 
-function deleteBidule(){ //Delete le button Fin
+function deleteEnd(){ //Delete le button Fin
 
 	var elem = document.getElementById("buttonEnd");
 	elem.parentElement.removeChild(elem);
@@ -209,15 +220,25 @@ function deleteSecondScreen() {
 
 }
 
-function deleteChose() { //Delet le button Start Et Histo pour passer à l'écran d'historique
+function deleteChose() { //Delet l'écran 2 pour passer à l'écran d'historique
 	
 	deleteSecondScreen();
-	oui.appendChild(elementB4);
-	var targetDivBRe = document.getElementById("buttonRetour");
-    targetDivBRe.innerHTML = "Retour";
-    document.getElementById("buttonRetour").onclick = function() { clearHisto(); returnMenu(); };
     	
 	affichageHisto();
+
+	BottomContainer.appendChild(elementB4);
+	var targetDivBRe = document.getElementById("buttonRetour");
+    targetDivBRe.innerHTML = "Retour";
+    
+    document.getElementById("buttonRetour").onclick = function() {
+    		clearHisto();
+    		returnMenu(); 
+    		elem = document.getElementById("buttonGraph");
+			elem.parentElement.removeChild(elem);};
+
+    BottomContainer.appendChild(elementB55);
+    var targetDivBHg = document.getElementById("buttonGraph");
+    targetDivBHg.innerHTML = "Graph";
 
 }
 
@@ -239,7 +260,7 @@ function affichageHisto() { //Affiche l'historique
 		divScore.id = i + "Score";
 		divScore.innerHTML = dateH + " : " + scoreH + " ISSOU";
 
-		document.getElementById("Container").appendChild(divScore);
+		document.getElementById("Container2").appendChild(divScore);
 
 
 	}
@@ -261,19 +282,19 @@ function clearHisto() { //Supprime l'affichage de l'historique
 
 function returnMenu() { // Retour à l'écran 2
 
-	oui.appendChild(elementB2); //Button Start
+	Container1.appendChild(elementB2); //Button Start
 	var targetDivBS = document.getElementById("buttonStart");
 	targetDivBS.innerHTML = "Start";
 
-	oui.appendChild(elementB6); //Button Historique
+	Container1.appendChild(elementB6); //Button Historique
 	var targetDivBH = document.getElementById("buttonHisto");
 	targetDivBH.innerHTML = "Historique";
 
-	oui.appendChild(elementB44); 
+	Container1.appendChild(elementB44); 
 	var targetDivBO = document.getElementById("buttonOption");
 	targetDivBO.innerHTML = "Option";
 
-	oui.appendChild(elementB33); 
+	Container1.appendChild(elementB33); 
 	var targetDivBRs1 = document.getElementById("buttonReturnToProfil");
 	targetDivBRs1.innerHTML = "Retour";
 
@@ -282,7 +303,7 @@ function returnMenu() { // Retour à l'écran 2
 function openOptionScreen() {
 	deleteSecondScreen();
 
-	oui.appendChild(elementB4);
+	Container1.appendChild(elementB4);
 	var targetDivBRe = document.getElementById("buttonRetour");
     targetDivBRe.innerHTML = "Retour";
 
@@ -312,7 +333,7 @@ function defineProfil() {
     document.body.appendChild(profilInputFieldPrenom);
 
     //Button pour sauvegarder les entrée
-    oui.appendChild(elementB9);
+    Container1.appendChild(elementB9);
 
     var targetDivBS = document.getElementById("buttonSave");
 	targetDivBS.innerHTML = "Save";
@@ -345,7 +366,7 @@ function InstantiateReset(){
 		
 	 	upo = false;
 
-	 	ouioui.appendChild(elementB3);
+	 	Container1.appendChild(elementB3);
 	 	var targetDivBE = document.getElementById("buttonEnd");
 	 	targetDivBE.innerHTML = "Stop";
 
@@ -359,7 +380,7 @@ function InstantiateReset(){
 
 		upo = true;
 
-		deleteBidule();
+		deleteEnd();
 
 		var targetDivBP = document.getElementById("buttonPause");
 	 	targetDivBP.innerHTML = "Pause";
@@ -371,7 +392,7 @@ function InstantiateReset(){
 }
 
 function UnlimitedFunction(){ //Fin de course retour au menu
-	deleteBidule();
+	deletedEnd();
 	off = 3;
 
 	returnMenu();

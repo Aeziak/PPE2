@@ -50,7 +50,7 @@ button:hover {
 }
 
 
-#Oui {
+#Container1 {
 	width : 100%;
 	height : 100%;
 	background-color : #C0C0C0;
@@ -59,7 +59,7 @@ button:hover {
 	min-height: 700px;
 }
 
-#Container {
+#Container2 {
   display: flex;
   flex-direction: column
 }
