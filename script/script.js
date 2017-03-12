@@ -55,7 +55,6 @@ var d = 0;
 var repeat = true;
 var ID = 0;
 var score = 0;
-var date = new Date();
 var l = 0;
 var km1 = 0;
 var m1 = 0;
@@ -154,24 +153,6 @@ function setID() {
 }
 
 
-function setDate (){
-	var dd = date.getDay();
-	var mm = date.getMonth()+1; //January is 0!
-	var yyyy = date.getFullYear();
-
-	if(dd<10) {
-	    dd='0'+dd
-	} 
-
-	if(mm<10) {
-	    mm='0'+mm
-	} 
-
-	date = dd+'/'+mm+'/'+yyyy;
-	console.log("DATE" + date);
-}
-
-
 	setInterval( function courseOn() { // Boucle Programme
 		console.log(off);
 		if(repeat === false){
@@ -181,10 +162,10 @@ function setDate (){
 
 		if ( off === 3 ) { // Pour reset toutes les données lors du début de la seconde course
 
-			setDate();
+			var today = new Date().toString('MM/dd/yyyy');
 			setID();
 			localStorage.setItem( "Score" + ID, score);
-			localStorage.setItem( "Date" + ID, date);
+			localStorage.setItem( "Date" + ID, today);
 			ID++;
 			localStorage.setItem("ID", ID);
 			dTotal = 0;
@@ -305,9 +286,6 @@ function setDate (){
 			if ( min < 10 && sec >= 10 ) {
 				targetDiv1.innerHTML = "0" + min + " : " + sec;
 			}
-
-			date = new Date();
-			
 
 		}
 
