@@ -304,8 +304,47 @@ function openOptionScreen() {
 	deleteSecondScreen();
 
 	Container1.appendChild(elementB4);
+	var isButton = document.getElementsByTagName('button'); 
 	var targetDivBRe = document.getElementById("buttonRetour");
     targetDivBRe.innerHTML = "Retour";
+	var optionOptions = document.getElementById("options");
+	var optionColors = document.getElementById("screenColor");
+	optionOptions.innerHTML = "<p>Salut !</p>";
+	optionOptions.style.color = "blue";
+	optionColors.innerHTML = "<p id='default'>Bleu</p></br><p id='orange'>Orange</p></br><p id='green'>Vert</p></br><p id='red'>Rouge</p></br><p id='pink'>Rose</p>";
+	var Default	= document.getElementById("default");
+	var orange = document.getElementById("orange");
+	var Green = document.getElementById("green");
+	var Red = document.getElementById("red");
+	var Pink = document.getElementById("pink");
+	var isDefault = false;
+	var isOrange = false;
+	var isGreen = false;
+	var isRed = false;
+	var isPink = false;
+	Default.style.color = "blue";
+	orange.style.color = "orange";
+	green.style.color = "green";
+	red.style.color = "red";
+	pink.style.color = "pink";
+	
+	document.getElementById("orange").onclick = function(){ var returnButton = document.getElementById("buttonRetour"); var histoButton = document.getElementById("buttonHisto"); 
+	var optionsButton = document.getElementById("buttonOption"); var profileButton = document.getElementById("buttonReturnToProfil"); var startButton = document.getElementById("buttonStart");
+	returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3300, #FF6600)";
+	histoButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3300, #FF6600)";
+	isOrange = true; isDefault = false; isGreen = false; isRed = false; isPink = false;};
+	if(isOrange === true){
+	document.getElementById("buttonRetour").onmouseover = function() { var returnButton = document.getElementById("buttonRetour"); var histoButton = document.getElementById("buttonHisto"); 
+	var optionsButton = document.getElementById("buttonOption"); var profileButton = document.getElementById("buttonReturnToProfil"); var startButton = document.getElementById("buttonStart");
+	returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3333, #FF6633)";
+	histoButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3333, #FF6633)";};
+	
+	document.getElementById("buttonRetour").onmouseout = function() { var returnButton = document.getElementById("buttonRetour"); var histoButton = document.getElementById("buttonHisto"); 
+	var optionsButton = document.getElementById("buttonOption"); var profileButton = document.getElementById("buttonReturnToProfil"); var startButton = document.getElementById("buttonStart");
+	returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3300, #FF6600)";
+	histoButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3300, #FF6600)";};
+	}
+	
 
     document.getElementById("buttonRetour").onclick = function() { elem = document.getElementById("buttonRetour");
 	elem.parentElement.removeChild(elem); returnMenu(); }
