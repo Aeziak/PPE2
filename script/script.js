@@ -36,6 +36,9 @@ var profil = { //Profil de l'utilisateur
 
 
 console.log(localStorage);
+console.log(localStorage.age + localStorage.age);
+var ajeu =  parseInt(localStorage.age);
+console.log(ajeu + ajeu);
 var dTotal = 0; // Distance Totale
 var course = false; // Variable booléenne géré par un button qui signale le Début/Fin de la course
 var parcours = []; // Tableau des coordonnées GPS

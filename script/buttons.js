@@ -180,6 +180,8 @@ function deleteField () {
  	elem.parentElement.removeChild(elem);
  	elem = document.getElementById("inputFieldPrenom");
  	elem.parentElement.removeChild(elem);
+	elem = document.getElementById("inputFieldAge");
+	elem.parentElement.removeChild(elem);
 
 }
 
@@ -370,7 +372,15 @@ function defineProfil() {
     profilInputFieldPrenom.setAttribute("type", "text");
     profilInputFieldPrenom.setAttribute("value", "Prenom");
     Container2.appendChild(profilInputFieldPrenom);
+	
+	//Age
+	var profilInputFieldAge = document.createElement("INPUT");
+    profilInputFieldAge.id = "inputFieldAge";
+    profilInputFieldAge.setAttribute("type", "number");
+    profilInputFieldAge.setAttribute("value", "Age");
+    Container2.appendChild(profilInputFieldAge);
 
+	
     //Button pour sauvegarder les entrée
     Container1.appendChild(elementB9);
 
@@ -384,12 +394,14 @@ function inputDefineProfil() { //Sauvegarde les entrées de l'utilisateur si dif
 
 	var nom = document.getElementById("inputFieldNom").value;
 	var prenom = document.getElementById("inputFieldPrenom").value;
-	if ( nom === "" || prenom === "" ) {
+	var age =  document.getElementById("inputFieldAge").value;
+	if ( nom === "" || prenom === "") {
 		alert("Veuillez remplir tous les champs requis");
 	}
 	else if ( nom !== "" && prenom !== ""){
 		localStorage.setItem("nom", nom);
 		localStorage.setItem("prenom", prenom);
+		localStorage.setItem("age", age);
 		deleteField();
 		returnFirstScreen();
 		var targetDiv9 = document.getElementById("buttonLaunch");
