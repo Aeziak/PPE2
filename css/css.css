@@ -3,6 +3,11 @@
 	padding : 0;
 }
 
+input {
+  width: 100%;
+  height: 100%;
+}
+
 body {
 	height: auto
 	width: auto;
@@ -49,11 +54,6 @@ button:hover {
   text-decoration: none;
 }
 
-orange:hover {
-  background: #FF3333;
-  background-image: -webkit-linear-gradient(top, #FF3333, #FF6633);
-  text-decoration: none;
-}
 
 
 #Container1 {
@@ -68,5 +68,81 @@ orange:hover {
 #Container2 {
   display: flex;
   flex-direction: column
+}
+
+#default {
+  width : 50px;
+  height : 50px;
+  background-color: blue;
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 3px;
+  border: solid #000000 2px;
+  margin: 5px;
+
+}
+
+#red {
+  width : 50px;
+  height : 50px;
+  background-color: red;
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 3px;
+  border: solid #000000 2px;
+  margin: 5px;
+
+}
+
+#orange {
+  width : 50px;
+  height : 50px;
+  background-color: orange;
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 3px;
+  border: solid #000000 2px;
+  margin: 5px;
+
+
+}
+
+#green {
+  width : 50px;
+  height : 50px;
+  background-color: green;
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 3px;
+  border: solid #000000 2px;
+  margin: 5px;
+
+}
+
+#pink {
+  width : 50px;
+  height : 50px;
+  background-color: #FF69B4;
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 3px;
+  border: solid #000000 2px;
+  margin: 5px;
+}
+
+#screenColors {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: auto;
+
+}
+
+#chooseColorsButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: auto;
+
 }
 

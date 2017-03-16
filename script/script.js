@@ -32,11 +32,6 @@ var profil = { //Profil de l'utilisateur
 	}
 };
 
-
-
-
-console.log(localStorage);
-console.log(localStorage.age + localStorage.age);
 var ajeu =  parseInt(localStorage.age);
 console.log(ajeu + ajeu);
 var dTotal = 0; // Distance Totale
@@ -165,7 +160,8 @@ function setID() {
 
 		if ( off === 3 ) { // Pour reset toutes les données lors du début de la seconde course
 
-			var today = new Date().toString('MM/dd/yyyy');
+			var today = new Date().toString('dd/MM/yyyy');
+			console.log(today);
 			setID();
 			localStorage.setItem( "Score" + ID, score);
 			localStorage.setItem( "Date" + ID, today);

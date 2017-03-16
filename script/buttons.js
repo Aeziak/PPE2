@@ -117,6 +117,32 @@ elementB3.onclick = function() {
 	}
 };
 
+
+var buttonToColor = document.createElement("button"); // Button Graph de l'historique
+buttonToColor.type = "button";
+buttonToColor.value = "buttonColor"; 
+buttonToColor.id = "buttonColor";
+buttonToColor.onclick = function() { 
+	chooseColor();
+	elem = document.getElementById("buttonRetour");
+ 	elem.parentElement.removeChild(elem);
+ 	elem = document.getElementById("buttonColor");
+ 	elem.parentElement.removeChild(elem);
+
+ 	Container1.appendChild(elementB4);
+ 	
+ 	document.getElementById("buttonRetour").onclick = function() { 
+    	elem = document.getElementById("buttonRetour");
+    	elem.parentElement.removeChild(elem); 
+		elem = document.getElementById("screenColors");
+		elem.parentElement.removeChild(elem); 
+		returnMenu();
+	}
+
+
+
+};
+
   /*     	
 			
 
@@ -303,53 +329,121 @@ function returnMenu() { // Retour à l'écran 2
 }
 
 function openOptionScreen() {
+
 	deleteSecondScreen();
 
 	Container1.appendChild(elementB4);
-	var isButton = document.getElementsByTagName('button'); 
+
+	Container2.appendChild(buttonToColor);
+
 	var targetDivBRe = document.getElementById("buttonRetour");
     targetDivBRe.innerHTML = "Retour";
-	var optionOptions = document.getElementById("options");
-	var optionColors = document.getElementById("screenColor");
-	optionOptions.innerHTML = "<p>Salut !</p>";
-	optionOptions.style.color = "blue";
-	optionColors.innerHTML = "<p id='default'>Bleu</p></br><p id='orange'>Orange</p></br><p id='green'>Vert</p></br><p id='red'>Rouge</p></br><p id='pink'>Rose</p>";
-	var Default	= document.getElementById("default");
-	var orange = document.getElementById("orange");
-	var Green = document.getElementById("green");
-	var Red = document.getElementById("red");
-	var Pink = document.getElementById("pink");
-	var isDefault = false;
-	var isOrange = false;
-	var isGreen = false;
-	var isRed = false;
-	var isPink = false;
-	Default.style.color = "blue";
-	orange.style.color = "orange";
-	green.style.color = "green";
-	red.style.color = "red";
-	pink.style.color = "pink";
-	
-	document.getElementById("orange").onclick = function(){ var returnButton = document.getElementById("buttonRetour"); var histoButton = document.getElementById("buttonHisto"); 
-	var optionsButton = document.getElementById("buttonOption"); var profileButton = document.getElementById("buttonReturnToProfil"); var startButton = document.getElementById("buttonStart");
-	returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3300, #FF6600)";
-	histoButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3300, #FF6600)";
-	isOrange = true; isDefault = false; isGreen = false; isRed = false; isPink = false;};
-	if(isOrange === true){
-	document.getElementById("buttonRetour").onmouseover = function() { var returnButton = document.getElementById("buttonRetour"); var histoButton = document.getElementById("buttonHisto"); 
-	var optionsButton = document.getElementById("buttonOption"); var profileButton = document.getElementById("buttonReturnToProfil"); var startButton = document.getElementById("buttonStart");
-	returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3333, #FF6633)";
-	histoButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3333, #FF6633)";};
-	
-	document.getElementById("buttonRetour").onmouseout = function() { var returnButton = document.getElementById("buttonRetour"); var histoButton = document.getElementById("buttonHisto"); 
-	var optionsButton = document.getElementById("buttonOption"); var profileButton = document.getElementById("buttonReturnToProfil"); var startButton = document.getElementById("buttonStart");
-	returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3300, #FF6600)";
-	histoButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF3300, #FF6600)";};
-	}
-	
 
-    document.getElementById("buttonRetour").onclick = function() { elem = document.getElementById("buttonRetour");
-	elem.parentElement.removeChild(elem); returnMenu(); }
+    var targetDivBRe = document.getElementById("buttonColor");
+    targetDivBRe.innerHTML = "Couleur";
+
+    document.getElementById("buttonRetour").onclick = function() { 
+    	elem = document.getElementById("buttonRetour");
+		elem.parentElement.removeChild(elem);  
+		elem = document.getElementById("buttonColor");
+		elem.parentElement.removeChild(elem);  
+		returnMenu();
+
+	}
+}
+
+
+function chooseColor() {
+
+	var screenColors = document.createElement("DIV");
+	screenColors.id = "screenColors";
+	Container1.appendChild(screenColors);
+
+	var chooseColorsButton = document.createElement("DIV");
+	chooseColorsButton.id = "chooseColorsButton";
+	screenColors.appendChild(chooseColorsButton);
+	chooseColorsButton.innerHTML = "<div id='default'></div><div id='orange'></div></br><div id='green'></div><div id='red'></div></br><div id='pink'></div>";
+	
+	document.getElementById("orange").onclick = function(){ 
+		var returnButton = document.getElementById("buttonRetour");
+		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB9.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB11.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB22.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB6.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB33.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB44.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB55.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		elementB3.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+	};
+
+	document.getElementById("default").onclick = function(){ 
+		var returnButton = document.getElementById("buttonRetour");
+		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB9.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB11.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB22.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB6.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB33.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB44.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB55.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		elementB3.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+	};
+
+	document.getElementById("green").onclick = function(){ 
+		var returnButton = document.getElementById("buttonRetour");
+		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB9.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB11.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB22.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB6.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB33.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB44.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB55.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		elementB3.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		console.log("yolo");
+	};
+
+	document.getElementById("red").onclick = function(){ 
+		var returnButton = document.getElementById("buttonRetour");
+		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB9.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB11.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB22.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB6.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB33.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB44.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB55.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		elementB3.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+	};
+
+		document.getElementById("pink").onclick = function(){ 
+		var returnButton = document.getElementById("buttonRetour");
+		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB9.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB11.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB22.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB6.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB33.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB44.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB55.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		elementB3.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+	};
 }
 
 
@@ -380,6 +474,34 @@ function defineProfil() {
     profilInputFieldAge.setAttribute("value", "Age");
     Container2.appendChild(profilInputFieldAge);
 
+    //Masse
+	var profilInputFieldMasse = document.createElement("INPUT");
+    profilInputFieldMasse.id = "inputFieldMasse";
+    profilInputFieldMasse.setAttribute("type", "number");
+    profilInputFieldMasse.setAttribute("value", "Masse");
+    Container2.appendChild(profilInputFieldMasse);
+
+    
+    //GenderM
+	var profilInputFieldGenderM = document.createElement("INPUT");
+    profilInputFieldGenderM.id = "inputFieldGenderM";
+    profilInputFieldGenderM.setAttribute("type", "checkbox");
+    profilInputFieldGenderM.setAttribute("value", "Male");
+    Container2.appendChild(profilInputFieldGenderM);
+
+    var targetDiv99 = document.getElementById("inputFieldGenderM");
+		targetDiv99.innerHTML = "Homme";
+
+    //GenderMM
+	var profilInputFieldGenderF = document.createElement("INPUT");
+    profilInputFieldGenderF.id = "inputFieldGenderF";
+    profilInputFieldGenderF.setAttribute("type", "checkbox");
+    profilInputFieldGenderF.setAttribute("value", "Female");
+    Container2.appendChild(profilInputFieldGenderF);
+
+    var targetDiv999 = document.getElementById("inputFieldGenderF");
+		targetDiv999.innerHTML = "Femme";
+
 	
     //Button pour sauvegarder les entrée
     Container1.appendChild(elementB9);
@@ -395,6 +517,7 @@ function inputDefineProfil() { //Sauvegarde les entrées de l'utilisateur si dif
 	var nom = document.getElementById("inputFieldNom").value;
 	var prenom = document.getElementById("inputFieldPrenom").value;
 	var age =  document.getElementById("inputFieldAge").value;
+	var masse =  document.getElementById("inputFieldMasse").value;
 	if ( nom === "" || prenom === "") {
 		alert("Veuillez remplir tous les champs requis");
 	}
