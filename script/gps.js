@@ -21,6 +21,8 @@ function onSuccess(position) {
 	parcours.push(objpos[i2]);
 
 	parcoursLaunchVerifability = true;
+
+	moveMarker(lat,lng);
 }
 
 // onError Callback receives a PositionError object
@@ -32,6 +34,16 @@ function onError(error) {
 
 // Options: retrieve the location every 3 seconds
 //
+
+function moveMarker(lat, lng) {
+    var newLatLng = new google.maps.LatLng(lat, lng);
+    var myLatLng = {lat,lng};
+    map.setCenter(newLatLng);
+    var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+  });
+}
 
 
 

@@ -11,22 +11,6 @@ var prenom = "Prenom";
 var nom = "Nom";
 var soundenabled = true;
 
-function play() { // Fonction pour le clique sur le pÃ¨re Mario
-	if(soundenabled === true){
-	  var clicksound = document.getElementById("audio1"); // Variable de l'Ã©lÃ©ment "audio1" de l'html
-	  clicksound.play(); // Joue la musique "play"
-	  clicksound.volume = 0.5;  // RÃ©gle le volume Ã  100% (valeur 1)
-	}
-};
-
-function soundOff(){
-	soundenabled = false;
-}
-function soundOn(){
-	soundenabled = true;
-}
-
-
 
 // Partie Button
 
@@ -58,12 +42,12 @@ var elementB4 = document.createElement("button"); //Button de Retour qui s'affic
 elementB4.type = "button";
 elementB4.value = "Click me"; 
 elementB4.id = "buttonRetour";
-elementB4.onclick = function() { 
-	play();
+elementB4.onclick = function() {
+	play(); 
 	returnMenu();
 };
 
-var elementB9 = document.createElement("button"); //Button de Retour qui s'affiche sur l'écran d'historique
+var elementB9 = document.createElement("button"); //Button 
 elementB9.type = "button";
 elementB9.value = "Click me"; 
 elementB9.id = "buttonSave";
@@ -89,6 +73,7 @@ elementB22.id = "buttonReset";
 elementB22.onclick = function() { 
 	play();
 	defineProfil();
+	deleteOptions();
 };
 
 
@@ -134,8 +119,8 @@ elementB55.onclick = function() {
 var elementB3 = document.createElement("button"); //Button pour mettre fin à la course et afficher le score
 elementB3.id = "buttonEnd";
 elementB3.value = "Fin"; 
-elementB3.onclick = function() { 
-	play();
+elementB3.onclick = function() {
+	play(); 
 	iamTheBooleanOfMyCode = !iamTheBooleanOfMyCode;
 	if(iamTheBooleanOfMyCode === true){
 	 	courseOff(); 
@@ -150,12 +135,14 @@ var buttonToColor = document.createElement("button"); // Button Graph de l'histo
 buttonToColor.type = "button";
 buttonToColor.value = "buttonColor"; 
 buttonToColor.id = "buttonColor";
-buttonToColor.onclick = function() { 
-	play();
+buttonToColor.onclick = function() {
+	play(); 
 	chooseColor();
 	elem = document.getElementById("buttonRetour");
  	elem.parentElement.removeChild(elem);
  	elem = document.getElementById("buttonColor");
+ 	elem.parentElement.removeChild(elem);
+ 	elem = document.getElementById("buttonReset");
  	elem.parentElement.removeChild(elem);
 
  	Container1.appendChild(elementB4);
@@ -168,10 +155,35 @@ buttonToColor.onclick = function() {
 		elem.parentElement.removeChild(elem); 
 		returnMenu();
 	}
-
-
-
 };
+
+
+var buttonMap = document.createElement("button");
+buttonMap.type = "button";
+buttonMap.value = "buttonColor";
+buttonMap.id = "buttonMap";
+buttonMap.onclick = function() {
+	play();
+	switchToMap(); // TODO
+	screenIsMap = !screenIsMap;
+
+	var map;
+
+	initMap();
+
+
+}
+
+
+
+function initMap() {
+	  map = new google.maps.Map(document.getElementById('map'), {
+	    center: {lat: lat, lng: lng},
+	    zoom: 18
+	  });
+	}
+
+
 
   /*     	
 			
@@ -211,8 +223,6 @@ function deleteFirstScreen() {
 
 	var elem = document.getElementById("buttonLaunch");
  	elem.parentElement.removeChild(elem);
- 	elem = document.getElementById("buttonReset");
- 	elem.parentElement.removeChild(elem);
 
 }
 
@@ -221,10 +231,6 @@ function returnFirstScreen() {
 	Container2.appendChild(elementB11);
 	var targetDivBSt = document.getElementById("buttonLaunch");
     targetDivBSt.innerHTML = nom + " " + prenom;
-
-	Container2.appendChild(elementB22);
-	var targetDivBRe = document.getElementById("buttonReset");
-    targetDivBRe.innerHTML = "Reset";
 
 }
 
@@ -238,6 +244,12 @@ function deleteField () {
  	elem.parentElement.removeChild(elem);
 	elem = document.getElementById("inputFieldAge");
 	elem.parentElement.removeChild(elem);
+	elem = document.getElementById("inputFieldMasse");
+ 	elem.parentElement.removeChild(elem);
+ 	elem = document.getElementById("inputFieldGenderM");
+ 	elem.parentElement.removeChild(elem);
+ 	elem = document.getElementById("inputFieldGenderF");
+ 	elem.parentElement.removeChild(elem);
 
 }
 
@@ -248,6 +260,9 @@ function deleteMachin(){ //Delete le Screen 2 pour passer au screen 3
     Container2.appendChild(elementB1);
 	var targetDivBP = document.getElementById("buttonPause");
     targetDivBP.innerHTML = "Pause";
+    Container2.appendChild(buttonMap);
+	var targetDivBP = document.getElementById("buttonMap");
+    targetDivBP.innerHTML = "wéwééwé";
 
 }
 
@@ -276,6 +291,19 @@ function deleteSecondScreen() {
 	elem = document.getElementById("buttonReturnToProfil");
 	elem.parentElement.removeChild(elem);
 
+}
+
+function deleteOptions() {
+	elem = document.getElementById("buttonColor");
+	elem.parentElement.removeChild(elem);
+	elem = document.getElementById("buttonReset");
+	elem.parentElement.removeChild(elem);
+	
+	document.getElementById("buttonRetour").onclick = function() {
+    		play();
+    		OptionScreen();
+    		deleteField();
+    	}
 }
 
 function deleteChose() { //Delet l'écran 2 pour passer à l'écran d'historique
@@ -363,9 +391,19 @@ function openOptionScreen() {
 
 	deleteSecondScreen();
 
+	OptionScreen();
+}
+
+function OptionScreen (){
+
 	Container1.appendChild(elementB4);
 
 	Container2.appendChild(buttonToColor);
+
+	Container2.appendChild(elementB22);
+
+	var targetDivBRe = document.getElementById("buttonReset");
+	targetDivBRe.innerHTML = "Reset";
 
 	var targetDivBRe = document.getElementById("buttonRetour");
     targetDivBRe.innerHTML = "Retour";
@@ -373,23 +411,13 @@ function openOptionScreen() {
     var targetDivBRe = document.getElementById("buttonColor");
     targetDivBRe.innerHTML = "Couleur";
 
-
-    /*document.getElementById("sound").onclick = function(){
-		if(soundenabled === true){
-			soundenabled = false;
-			document.getElementById("sound").innerHTML = "Désactiver le son";
-		}
-		if(soundenabled === false){
-			soundenabled = true;
-			document.getElementById("sound").innerHTML = "Activer le son";
-		}
-	}*/
-
     document.getElementById("buttonRetour").onclick = function() { 
     	play();
     	elem = document.getElementById("buttonRetour");
 		elem.parentElement.removeChild(elem);  
 		elem = document.getElementById("buttonColor");
+		elem.parentElement.removeChild(elem);  
+		elem = document.getElementById("buttonReset");
 		elem.parentElement.removeChild(elem);  
 		returnMenu();
 
@@ -417,6 +445,7 @@ function chooseColor() {
 		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
+		buttonToColor.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
 		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
 		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
@@ -434,6 +463,7 @@ function chooseColor() {
 		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
+		buttonToColor.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
 		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
 		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
@@ -451,6 +481,7 @@ function chooseColor() {
 		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
+		buttonToColor.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
 		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
 		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
@@ -469,6 +500,7 @@ function chooseColor() {
 		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
+		buttonToColor.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
 		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
 		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
@@ -486,6 +518,7 @@ function chooseColor() {
 		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
+		buttonToColor.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
 		elementB2.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
 		elementB4.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
@@ -498,7 +531,6 @@ function chooseColor() {
 		elementB55.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
 		elementB3.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
 	};
-
 	document.getElementById("sound").onclick = function(){
 		soundOff();
 		document.getElementById("sound").innerHTML = "";
@@ -513,9 +545,6 @@ function chooseColor() {
 
 
 function defineProfil() {
-
-	deleteFirstScreen();
-	localStorage.clear();
 
 	//Création d'un moyen pour l'utilisateur d'enregistrer son nom et prénom
 	//Nom
@@ -578,7 +607,7 @@ function defineProfil() {
 
 
 function inputDefineProfil() { //Sauvegarde les entrées de l'utilisateur si différent de null
-
+	localStorage.clear();
 	var nom = document.getElementById("inputFieldNom").value;
 	var prenom = document.getElementById("inputFieldPrenom").value;
 	var age =  document.getElementById("inputFieldAge").value;
@@ -591,6 +620,8 @@ function inputDefineProfil() { //Sauvegarde les entrées de l'utilisateur si dif
 		localStorage.setItem("prenom", prenom);
 		localStorage.setItem("age", age);
 		deleteField();
+		var elem = document.getElementById("buttonRetour");
+		elem.parentElement.removeChild(elem); 
 		returnFirstScreen();
 		var targetDiv9 = document.getElementById("buttonLaunch");
 		targetDiv9.innerHTML = nom + " " + prenom;
@@ -649,3 +680,23 @@ function UnlimitedFunction(){ //Fin de course retour au menu
 
 	buttonResetCheck = true;
 }
+
+function switchToMap() {
+	elem = document.getElementById("buttonPause");
+	elem.parentElement.removeChild(elem);  
+	targetDiv.innerHTML = "";
+	targetDiv1.innerHTML = "";
+
+	//add map
+
+	 document.getElementById("buttonMap").onclick = function() { 
+	 	play();
+    	Container2.appendChild(elementB1);
+		var targetDivBP = document.getElementById("buttonPause");
+	    targetDivBP.innerHTML = "Pause";
+	    screenIsMap = !screenIsMap;
+
+	}
+}
+
+	 

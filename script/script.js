@@ -56,6 +56,7 @@ var score = 0;
 var l = 0;
 var km1 = 0;
 var m1 = 0;
+screenIsMap = false;
 
 var nom = localStorage.getItem("nom");
 var prenom = localStorage.getItem("prenom");
@@ -76,6 +77,20 @@ function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entr
 }
 
 
+function play() { 
+	if(soundenabled === true){
+	  var clicksound = document.getElementById("audio1"); 
+	  clicksound.play(); 
+	  clicksound.volume = 0.5; 
+	}
+};
+
+function soundOff(){
+	soundenabled = false;
+}
+function soundOn(){
+	soundenabled = true;
+}
 
 
 function courseOff() { // Gére l'affichage des résultats
@@ -152,6 +167,7 @@ function setID() {
 
 
 	setInterval( function courseOn() { // Boucle Programme
+		console.log(off);
 		if(repeat === false){
 		InstantiateReset();
 		repeat = true;
@@ -257,7 +273,7 @@ function setID() {
 			}
 			
 
-			targetDiv.innerHTML = "Distance parcouru : " + km1 + "," + m1 + " km";
+
 			
 			
 			// Partie chronométre
@@ -272,18 +288,23 @@ function setID() {
 				min = 0;
 				heure++;
 			}
-			if ( sec < 10 && min < 10) {
-				targetDiv1.innerHTML = "0" + min + " : " + "0" + sec;
+
+			if ( screenIsMap === false ) {
+				targetDiv.innerHTML = "Distance parcouru : " + km1 + "," + m1 + " km";
+				if ( sec < 10 && min < 10) {
+					targetDiv1.innerHTML = "0" + min + " : " + "0" + sec;
+				}
+				if (min >= 10 && sec < 10) {
+					targetDiv1.innerHTML = min + " : " + "0" + sec;
+				}
+				if ( min >= 10 && sec >=  10) {
+					targetDiv1.innerHTML = min + " : " + sec;
+				}
+				if ( min < 10 && sec >= 10 ) {
+					targetDiv1.innerHTML = "0" + min + " : " + sec;
+				}
 			}
-			if (min >= 10 && sec < 10) {
-				targetDiv1.innerHTML = min + " : " + "0" + sec;
-			}
-			if ( min >= 10 && sec >=  10) {
-				targetDiv1.innerHTML = min + " : " + sec;
-			}
-			if ( min < 10 && sec >= 10 ) {
-				targetDiv1.innerHTML = "0" + min + " : " + sec;
-			}
+		
 
 		}
 
