@@ -9,6 +9,23 @@ var BottomContainer = document.getElementById("BottomContainer");
 var iamTheBooleanOfMyCode = false; // Booléene pour appeller UnlimitedFunction();
 var prenom = "Prenom";
 var nom = "Nom";
+var soundenabled = true;
+
+function play() { // Fonction pour le clique sur le pÃ¨re Mario
+	if(soundenabled === true){
+	  var clicksound = document.getElementById("audio1"); // Variable de l'Ã©lÃ©ment "audio1" de l'html
+	  clicksound.play(); // Joue la musique "play"
+	  clicksound.volume = 0.5;  // RÃ©gle le volume Ã  100% (valeur 1)
+	}
+};
+
+function soundOff(){
+	soundenabled = false;
+}
+function soundOn(){
+	soundenabled = true;
+}
+
 
 
 // Partie Button
@@ -19,6 +36,7 @@ elementB1.type = "button";
 elementB1.value = "Pause"; 
 elementB1.id = "buttonPause";
 elementB1.onclick = function() { 
+	play();
 	course = !course;
 	buttonResetCheck = !buttonResetCheck;
 	repeat = false;
@@ -29,6 +47,7 @@ elementB2.type = "button";
 elementB2.value = "Click me"; 
 elementB2.id = "buttonStart";
 elementB2.onclick = function() { 
+	play();
 	course = !course; 
 	console.log(course); 
 	off++;
@@ -40,6 +59,7 @@ elementB4.type = "button";
 elementB4.value = "Click me"; 
 elementB4.id = "buttonRetour";
 elementB4.onclick = function() { 
+	play();
 	returnMenu();
 };
 
@@ -48,6 +68,7 @@ elementB9.type = "button";
 elementB9.value = "Click me"; 
 elementB9.id = "buttonSave";
 elementB9.onclick = function() { 
+	play();
 	inputDefineProfil();
 };
 
@@ -57,6 +78,7 @@ elementB11.type = "button";
 elementB11.value = "Start";
 elementB11.id = "buttonLaunch";
 elementB11.onclick = function() { 
+	play();
 	launch = !launch;
 };
 
@@ -65,6 +87,7 @@ elementB22.type = "button";
 elementB22.value = "Reset"; 
 elementB22.id = "buttonReset";
 elementB22.onclick = function() { 
+	play();
 	defineProfil();
 };
 
@@ -74,6 +97,7 @@ elementB6.type = "button";
 elementB6.value = "Histo"; 
 elementB6.id = "buttonHisto";
 elementB6.onclick = function() { 
+	play();
 	deleteChose();
 };
 
@@ -82,6 +106,7 @@ elementB33.type = "button";
 elementB33.value = "retourChoixProfil"; 
 elementB33.id = "buttonReturnToProfil";
 elementB33.onclick = function() { 
+	play();
 	deleteSecondScreen();
 	returnFirstScreen();
 };
@@ -91,6 +116,7 @@ elementB44.type = "button";
 elementB44.value = "Option"; 
 elementB44.id = "buttonOption";
 elementB44.onclick = function() { 
+	play();
 	openOptionScreen();
 };
 
@@ -100,6 +126,7 @@ elementB55.type = "button";
 elementB55.value = "HistoGraph"; 
 elementB55.id = "buttonGraph";
 elementB55.onclick = function() { 
+	play();
 	createGraph();
 };
 
@@ -108,6 +135,7 @@ var elementB3 = document.createElement("button"); //Button pour mettre fin à la
 elementB3.id = "buttonEnd";
 elementB3.value = "Fin"; 
 elementB3.onclick = function() { 
+	play();
 	iamTheBooleanOfMyCode = !iamTheBooleanOfMyCode;
 	if(iamTheBooleanOfMyCode === true){
 	 	courseOff(); 
@@ -123,6 +151,7 @@ buttonToColor.type = "button";
 buttonToColor.value = "buttonColor"; 
 buttonToColor.id = "buttonColor";
 buttonToColor.onclick = function() { 
+	play();
 	chooseColor();
 	elem = document.getElementById("buttonRetour");
  	elem.parentElement.removeChild(elem);
@@ -132,6 +161,7 @@ buttonToColor.onclick = function() {
  	Container1.appendChild(elementB4);
  	
  	document.getElementById("buttonRetour").onclick = function() { 
+ 		play();
     	elem = document.getElementById("buttonRetour");
     	elem.parentElement.removeChild(elem); 
 		elem = document.getElementById("screenColors");
@@ -259,6 +289,7 @@ function deleteChose() { //Delet l'écran 2 pour passer à l'écran d'historique
     targetDivBRe.innerHTML = "Retour";
 
     document.getElementById("buttonRetour").onclick = function() {
+    		play();
     		clearHisto();
     		returnMenu(); 
     		elem = document.getElementById("buttonGraph");
@@ -342,7 +373,20 @@ function openOptionScreen() {
     var targetDivBRe = document.getElementById("buttonColor");
     targetDivBRe.innerHTML = "Couleur";
 
+
+    /*document.getElementById("sound").onclick = function(){
+		if(soundenabled === true){
+			soundenabled = false;
+			document.getElementById("sound").innerHTML = "Désactiver le son";
+		}
+		if(soundenabled === false){
+			soundenabled = true;
+			document.getElementById("sound").innerHTML = "Activer le son";
+		}
+	}*/
+
     document.getElementById("buttonRetour").onclick = function() { 
+    	play();
     	elem = document.getElementById("buttonRetour");
 		elem.parentElement.removeChild(elem);  
 		elem = document.getElementById("buttonColor");
@@ -362,9 +406,15 @@ function chooseColor() {
 	var chooseColorsButton = document.createElement("DIV");
 	chooseColorsButton.id = "chooseColorsButton";
 	screenColors.appendChild(chooseColorsButton);
-	chooseColorsButton.innerHTML = "<div id='default'></div><div id='orange'></div></br><div id='green'></div><div id='red'></div></br><div id='pink'></div>";
+	if(soundenabled === true){
+		chooseColorsButton.innerHTML = "<center><div id='default'></div><div id='orange'></div></br><div id='green'></div><div id='red'></div></br><div id='pink'></div><div id='sound'>Desactiver le son</div><div id='soundOff'></div></center>";
+	}
+	else{
+		chooseColorsButton.innerHTML = "<center><div id='default'></div><div id='orange'></div></br><div id='green'></div><div id='red'></div></br><div id='pink'></div><div id='sound'></div><div id='soundOff'>Activer le son</div></center>";
+	}
 	
 	document.getElementById("orange").onclick = function(){ 
+		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, orange, orange)";
@@ -381,6 +431,7 @@ function chooseColor() {
 	};
 
 	document.getElementById("default").onclick = function(){ 
+		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, #3498db, #2980b9)";
@@ -397,6 +448,7 @@ function chooseColor() {
 	};
 
 	document.getElementById("green").onclick = function(){ 
+		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0.9))";
@@ -414,6 +466,7 @@ function chooseColor() {
 	};
 
 	document.getElementById("red").onclick = function(){ 
+		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, red, red)";
@@ -430,6 +483,7 @@ function chooseColor() {
 	};
 
 		document.getElementById("pink").onclick = function(){ 
+		play();
 		var returnButton = document.getElementById("buttonRetour");
 		returnButton.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
 		elementB1.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
@@ -444,6 +498,17 @@ function chooseColor() {
 		elementB55.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
 		elementB3.style.backgroundImage = "-webkit-linear-gradient(top, #FF69B4, #FF69B4)";
 	};
+
+	document.getElementById("sound").onclick = function(){
+		soundOff();
+		document.getElementById("sound").innerHTML = "";
+		document.getElementById("soundOff").innerHTML = "Activer le son";
+	}
+	document.getElementById("soundOff").onclick = function(){
+		soundOn();
+		document.getElementById("sound").innerHTML = "Désactiver le son";
+		document.getElementById("soundOff").innerHTML = "";
+	}
 }
 
 

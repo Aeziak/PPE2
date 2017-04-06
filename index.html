@@ -19,8 +19,8 @@
     		<div id ="Container2"></div>
 
     		<!--- Button de départ -->
-    		<button id="buttonLaunch" onclick="launch = !launch"></button>
-			<button id="buttonReset" onclick="defineProfil();">Reset</button>
+    		<button id="buttonLaunch" onclick="launch = !launch;play();"></button>
+			<button id="buttonReset" onclick="defineProfil();play();">Reset</button>
 			<!--- Button de départ -->
 
 			<!--- Div pour afficher le score en fin de course -->
@@ -37,6 +37,7 @@
     		
 			
 			<p id="demo"></p>
+			<audio id="audio1" src="media/click.mp3"></audio>
 
 
 			<script src="script/script.js"></script>

@@ -152,7 +152,6 @@ function setID() {
 
 
 	setInterval( function courseOn() { // Boucle Programme
-		console.log(off);
 		if(repeat === false){
 		InstantiateReset();
 		repeat = true;
