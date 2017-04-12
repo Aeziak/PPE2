@@ -15,12 +15,12 @@ function drawCalcul(){
 		k = 1.73195;
 		vitesseRef = 10;
 	}
-	else if(12 < vMoy < 14)
+	else if(vMoy < 14 && 12 < vMoy)
 	{
 		k = 1.6413;
 		vitesseRef = 13;
 	}
-	else if(14 < vMoy < 17.5)
+	else if(vMoy < 17.5 && 14 < vMoy)
 	{
 		k = 1.6888;
 		vitesseRef = 15;
@@ -30,6 +30,7 @@ function drawCalcul(){
 		vitesseRef = 20;
 	}
 
-	calories = (masse*vitesseRef*duree*k)/100;
+	calories = Math.round((((masse*vitesseRef*duree*k)/100)/50)*50);
+
 
 }

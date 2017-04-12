@@ -56,6 +56,7 @@ var score = 0;
 var l = 0;
 var km1 = 0;
 var m1 = 0;
+var vitesse_stock = 0;
 screenIsMap = false;
 
 var nom = localStorage.getItem("nom");
@@ -64,7 +65,6 @@ var targetDiv9 = document.getElementById("buttonLaunch");
 targetDiv9.innerHTML = nom + " " + prenom;
 
 //Initialisation des fonctions
-
 
 function distanceCalcul(lat1, lon1, lat2, lon2) { // Calcule d'une distance entre 2 coordonnées GPS
 	  var p = 0.017453292519943295;    // Math.PI / 180
@@ -95,6 +95,9 @@ function soundOn(){
 
 function courseOff() { // Gére l'affichage des résultats
 
+	drawCalcul();
+	vMoy();
+
 	//Calcul des données
 	var dT = distanceTotale(distanceParcouru);
 	var tT = sec + min*60 + heure*3600
@@ -107,6 +110,51 @@ function courseOff() { // Gére l'affichage des résultats
 
 	score = Math.round(dT/10) - Math.round(tT*0.2);
 	deletePause();
+
+	//Calories
+	if(calories < 50){
+		alert("court plus !");
+	}
+	else if(calories < 100 && calories >= 50){
+		alert("1 Pancake");
+		/*
+		alert("1 Panettone");
+		alert("1 Ferrero Rocher");
+		alert("1 Brioche");
+		*/
+	}
+	else if(calories < 150 && calories >= 100){
+		alert("2 Ferrero Rocher");
+		//alert("1 Brownie");
+		//alert("1 Barre de Kinder Bueno");
+		//alert("1 Pain au chocolat");
+	}
+	else if(calories < 200 && calories >= 150){
+		alert("1 Mars");
+		//alert("1 Chausson aux pommes");
+		//alert("1 Donut");
+	}
+	else if(calories < 250 && calories >= 200){
+		alert("1 Bagel");
+		/*
+		alert("1 Kit Kat");
+		*/
+	}
+	else if(calories < 300 && calories >= 250){
+		alert("2 Brownies");
+	}
+	else if(calories < 350 && calories >= 300){
+		alert("2 Donut");
+	}
+	else if(calories < 400 && calories >= 350){
+		alert("2 Mars");
+	}
+	else if(calories < 450 && calories >= 400){
+		alert("1  Macaron");
+	}
+	else if(calories > 450){
+		alert("1 Barbe à papa");
+	}
 
 	//Affichage des données
 	var targetDiv = document.getElementById("Container1").getElementsByClassName("Distance")[0];
@@ -121,6 +169,13 @@ function courseOff() { // Gére l'affichage des résultats
 	targetDivBE.innerHTML = "Return";
 
 
+}
+
+function vMoy(){
+	for(i = 0; i < vitesse.length; i++){
+		vitesse_stock = vitesse_stock + vitesse[i];
+		vMoy = vitesse_stock/i;
+	}
 }
 
 function distanceTotale (distanceParcouru) { // Additionne toutes les distances
